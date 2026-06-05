@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Taste Skill — 品味技能</title>
+<meta name="description" content="面向 AI 代理的反套路前端框架，可移植的 Agent 技能，提升界面品质。">
+<link rel="icon" href="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/assets/taste-skill-logo.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f5f0;--bg-warm:#efe9df;--bg-surface:#ffffff;--bg-card:#faf8f4;
+  --ink:#1a1520;--ink-80:#2d2638;--ink-60:#524a5e;--ink-40:#8a8296;--ink-20:#b8b0c4;
+  --violet:#7c3aed;--violet-light:#a78bfa;--violet-bg:rgba(124,58,237,.06);--violet-border:rgba(124,58,237,.15);
+  --amber:#a67c00;--amber-light:#d4a843;--amber-bg:rgba(166,124,0,.06);--amber-border:rgba(166,124,0,.18);
+  --border:#e4dfd6;--border-light:#ede9e2;
+  --code-bg:#1a1625;--code-text:#d4cfe0;--code-accent:#c4b5fd;
+  --radius:12px;--radius-lg:18px;
+  --ease:cubic-bezier(0.16,1,0.3,1);--ease-back:cubic-bezier(0.34,1.56,0.64,1);
+  --font-display:'Instrument Serif','Noto Sans SC',Georgia,serif;
+  --font-heading:'DM Sans','Noto Sans SC',system-ui,sans-serif;
+  --font-body:'Noto Sans SC','DM Sans',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink-80);line-height:1.8;overflow-x:hidden;font-size:15px}
+::selection{background:rgba(124,58,237,.18);color:var(--ink)}
+a{color:var(--violet);text-decoration:none;transition:color .2s}
+a:hover{color:var(--ink)}
+img{max-width:100%;display:block}
+code{font-family:var(--font-mono);font-size:.82em;background:var(--violet-bg);padding:.12em .4em;border-radius:4px;color:var(--violet);border:1px solid var(--violet-border)}
+strong{color:var(--ink);font-weight:600}
+
+/* ── Layout ─── */
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(1.25rem,4vw,2.5rem)}
+section{padding:clamp(3.5rem,8vh,6rem) 0;position:relative}
+
+/* ── Navigation ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:.7rem 0;
+  background:rgba(247,245,240,.75);
+  backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);
+  border-bottom:1px solid transparent;
+  transition:border-color .4s,box-shadow .4s;
+}
+nav.scrolled{border-bottom-color:var(--border);box-shadow:0 1px 12px rgba(26,21,32,.04)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:.55rem;font-family:var(--font-heading);font-weight:700;font-size:.92rem;color:var(--ink);letter-spacing:-.015em}
+.nav-brand img{width:26px;height:26px;border-radius:6px}
+.nav-links{display:flex;align-items:center;gap:1.8rem}
+.nav-links a{font-family:var(--font-heading);font-size:.82rem;font-weight:500;color:var(--ink-40);letter-spacing:.01em}
+.nav-links a:hover{color:var(--ink)}
+.nav-links .nav-cta{
+  font-size:.78rem;font-weight:600;color:#fff;background:var(--ink);
+  padding:.4rem 1.1rem;border-radius:99px;transition:background .2s,transform .15s;
+}
+.nav-links .nav-cta:hover{background:var(--violet);color:#fff;transform:translateY(-1px)}
+.nav-toggle{display:none;background:none;border:none;color:var(--ink-60);cursor:pointer;padding:4px}
+
+/* ── Hero ─── */
+.hero{padding:8.5rem 0 5rem;min-height:auto}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2.5rem,5vw,4.5rem);align-items:center}
+.hero-content{position:relative;z-index:2}
+.hero-label{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font-heading);font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:1.5rem;
+}
+.hero-label::before{content:'';width:20px;height:1.5px;background:var(--amber-light)}
+.hero h1{
+  font-family:var(--font-display);font-size:clamp(3rem,6.5vw,5rem);font-weight:400;
+  line-height:1;letter-spacing:-.03em;color:var(--ink);margin-bottom:.5rem;
+}
+.hero h1 em{font-style:italic;color:var(--violet)}
+.hero-sub{
+  font-family:var(--font-heading);font-size:clamp(.95rem,1.8vw,1.2rem);
+  font-weight:400;color:var(--ink-60);margin-bottom:1.75rem;letter-spacing:-.01em;
+}
+.hero-desc{max-width:50ch;color:var(--ink-60);font-size:.9rem;line-height:1.85;margin-bottom:2.25rem}
+.hero-actions{display:flex;gap:.85rem;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-family:var(--font-heading);font-weight:600;font-size:.85rem;
+  padding:.7rem 1.6rem;border-radius:99px;border:none;cursor:pointer;
+  transition:transform .2s var(--ease-back),box-shadow .25s;letter-spacing:-.01em;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--ink);color:#fff;box-shadow:0 2px 12px rgba(26,21,32,.15)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(26,21,32,.2);color:#fff}
+.btn-ghost{background:transparent;color:var(--ink-80);border:1.5px solid var(--border)}
+.btn-ghost:hover{border-color:var(--violet);color:var(--violet);transform:translateY(-1px)}
+
+/* Hero visual */
+.hero-visual{position:relative}
+.hero-img-wrap{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:0 20px 60px rgba(26,21,32,.08),0 1px 3px rgba(26,21,32,.06);
+  transform:perspective(1200px) rotateY(-3deg) rotateX(1deg);
+  transition:transform .6s var(--ease);
+}
+.hero-img-wrap:hover{transform:perspective(1200px) rotateY(0) rotateX(0)}
+.hero-img-wrap img{width:100%;height:auto}
+.hero-badge{
+  position:absolute;bottom:-1.2rem;left:-1.2rem;
+  background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:.75rem 1.1rem;display:flex;align-items:center;gap:.65rem;
+  box-shadow:0 8px 30px rgba(26,21,32,.08);z-index:3;
+}
+.hero-badge img{width:32px;height:32px;border-radius:7px}
+.hero-badge-text{font-size:.75rem;line-height:1.4}
+.hero-badge-text strong{display:block;color:var(--ink);font-weight:600}
+.hero-badge-text span{color:var(--ink-40)}
+
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--border) 25%,var(--border) 75%,transparent);
+}
+
+/* ── Section Headers ─── */
+.s-label{
+  font-family:var(--font-heading);font-size:.68rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:.6rem;
+  display:flex;align-items:center;gap:.45rem;
+}
+.s-label::before{content:'';width:14px;height:1.5px;background:var(--amber-light)}
+.s-title{
+  font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;
+  letter-spacing:-.025em;color:var(--ink);margin-bottom:.6rem;line-height:1.15;
+}
+.s-desc{color:var(--ink-60);max-width:52ch;font-size:.9rem;line-height:1.8;margin-bottom:2.5rem}
+
+/* ── Disclaimer ─── */
+.disclaimer-bar{
+  background:var(--amber-bg);border:1px solid var(--amber-border);
+  border-radius:var(--radius);padding:1rem 1.4rem;
+  font-size:.85rem;color:var(--amber);line-height:1.7;
+}
+.disclaimer-bar strong{color:var(--ink-80);font-weight:600}
+
+/* ── Install Section ─── */
+.install-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.code-card{
+  background:var(--code-bg);border-radius:var(--radius);
+  overflow:hidden;border:1px solid rgba(255,255,255,.06);
+  transition:border-color .3s,box-shadow .3s;
+}
+.code-card:hover{box-shadow:0 8px 30px rgba(26,21,32,.12)}
+.code-card-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.6rem 1rem;border-bottom:1px solid rgba(255,255,255,.06);
+  background:rgba(255,255,255,.03);
+}
+.code-card-head span{font-family:var(--font-mono);font-size:.7rem;color:rgba(212,207,224,.5);font-weight:500}
+.copy-btn{
+  font-family:var(--font-mono);font-size:.68rem;color:rgba(212,207,224,.5);
+  background:none;border:1px solid rgba(255,255,255,.1);border-radius:5px;
+  padding:.18rem .55rem;cursor:pointer;transition:all .2s;
+}
+.copy-btn:hover{color:var(--code-accent);border-color:var(--code-accent)}
+.code-card pre{padding:1rem 1.2rem;overflow-x:auto;font-size:.82rem;line-height:1.8;color:var(--code-accent)}
+
+/* ── Skills Bento Grid ─── */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:.85rem;grid-auto-rows:minmax(170px,auto)}
+.bento-card{
+  background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:1.6rem;display:flex;flex-direction:column;justify-content:space-between;
+  transition:border-color .3s,transform .35s var(--ease),box-shadow .35s;
+  position:relative;overflow:hidden;
+}
+.bento-card::before{
+  content:'';position:absolute;inset:0;opacity:0;
+  background:radial-gradient(circle at 25% 15%,var(--violet-bg),transparent 55%);
+  transition:opacity .4s;
+}
+.bento-card:hover{border-color:var(--violet-border);transform:translateY(-3px);box-shadow:0 12px 36px rgba(124,58,237,.07)}
+.bento-card:hover::before{opacity:1}
+.bento-card>*{position:relative;z-index:1}
+.bento-tag{
+  font-family:var(--font-mono);font-size:.62rem;font-weight:500;
+  color:var(--violet);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.45rem;
+}
+.bento-card h3{font-family:var(--font-heading);font-size:1.05rem;font-weight:700;color:var(--ink);letter-spacing:-.015em;margin-bottom:.35rem}
+.bento-card p{font-size:.82rem;color:var(--ink-60);line-height:1.7;flex:1}
+.bento-card .install-name{
+  font-family:var(--font-mono);font-size:.7rem;color:var(--ink-40);
+  margin-top:.85rem;padding-top:.7rem;border-top:1px solid var(--border-light);
+}
+.bento-lg{grid-column:span 7}
+.bento-md{grid-column:span 5}
+.bento-sm{grid-column:span 4}
+.bento-wide{grid-column:span 8}
+.bento-narrow{grid-column:span 4}
+
+/* ── Image-gen table ─── */
+.img-table{
+  background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  overflow:hidden;margin-top:1.5rem;
+}
+.img-table-head{
+  display:grid;grid-template-columns:1fr 1.2fr 2fr;
+  padding:.75rem 1.4rem;border-bottom:1px solid var(--border);
+  font-family:var(--font-heading);font-size:.7rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-40);
+}
+.img-table-row{
+  display:grid;grid-template-columns:1fr 1.2fr 2fr;
+  padding:.9rem 1.4rem;border-bottom:1px solid var(--border-light);
+  font-size:.86rem;color:var(--ink-60);align-items:center;
+  transition:background .2s;
+}
+.img-table-row:last-child{border-bottom:none}
+.img-table-row:hover{background:var(--violet-bg)}
+.img-table-row strong{color:var(--ink);font-weight:600}
+
+/* ── Knobs ─── */
+.knobs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.knob-card{
+  background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:1.75rem;
+}
+.knob-card h3{font-family:var(--font-mono);font-size:.82rem;font-weight:500;color:var(--violet);margin-bottom:.25rem}
+.knob-range{font-family:var(--font-mono);font-size:.66rem;color:var(--ink-40);margin-bottom:.65rem}
+.knob-card p{font-size:.84rem;color:var(--ink-60);line-height:1.7}
+.knob-visual{margin-top:1.1rem;height:4px;border-radius:2px;background:var(--bg-warm);overflow:hidden}
+.knob-visual-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--violet),var(--violet-light));transition:width 1s var(--ease)}
+
+/* ── Gallery ─── */
+.gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.gallery-item{
+  border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);
+  transition:transform .4s var(--ease),box-shadow .4s;
+}
+.gallery-item:hover{transform:scale(1.01);box-shadow:0 16px 48px rgba(26,21,32,.1)}
+.gallery-item img{width:100%;height:100%;object-fit:cover}
+
+/* ── FAQ ─── */
+.faq-list{max-width:720px}
+.faq-item{border-bottom:1px solid var(--border);overflow:hidden}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+  padding:1.25rem 0;cursor:pointer;user-select:none;
+  font-family:var(--font-heading);font-weight:600;font-size:.92rem;color:var(--ink);
+  transition:color .2s;
+}
+.faq-q:hover{color:var(--violet)}
+.faq-icon{
+  width:18px;height:18px;flex-shrink:0;position:relative;
+  transition:transform .3s var(--ease-back);
+}
+.faq-icon::before,.faq-icon::after{
+  content:'';position:absolute;background:var(--violet-light);border-radius:1px;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+}
+.faq-icon::before{width:12px;height:1.5px}
+.faq-icon::after{width:1.5px;height:12px;transition:transform .3s var(--ease-back),opacity .2s}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-item.open .faq-icon::after{opacity:0}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .4s var(--ease),padding .4s;
+  font-size:.86rem;color:var(--ink-60);line-height:1.8;
+}
+.faq-item.open .faq-a{max-height:260px;padding-bottom:1.25rem}
+
+/* ── Sponsors ─── */
+.sponsor-grid{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:flex-start}
+.sponsor-avatar{
+  width:40px;height:40px;border-radius:50%;overflow:hidden;
+  border:2px solid var(--border);transition:border-color .25s,transform .25s var(--ease-back);
+}
+.sponsor-avatar:hover{border-color:var(--violet);transform:scale(1.15)}
+.sponsor-avatar img{width:100%;height:100%;object-fit:cover}
+
+/* ── Footer ─── */
+footer{padding:2.5rem 0;border-top:1px solid var(--border);background:var(--bg-warm)}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-links{display:flex;gap:1.4rem;flex-wrap:wrap}
+.footer-links a{font-family:var(--font-heading);font-size:.8rem;color:var(--ink-40);font-weight:500}
+.footer-links a:hover{color:var(--ink)}
+.footer-copy{font-family:var(--font-heading);font-size:.76rem;color:var(--ink-40)}
+
+/* ── Reveal Animation ─── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:.07s}.reveal-d2{transition-delay:.14s}.reveal-d3{transition-delay:.21s}
+.reveal-d4{transition-delay:.28s}.reveal-d5{transition-delay:.35s}
+
+/* ── Star History ─── */
+.star-history{text-align:center;padding:1.5rem 0 0}
+.star-history img{max-width:520px;margin:0 auto;border-radius:var(--radius);border:1px solid var(--border)}
+
+/* ── Mobile ─── */
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:2.5rem}
+  .hero-visual{order:-1}
+  .hero-img-wrap{transform:none}
+  .install-grid{grid-template-columns:1fr}
+  .bento{grid-template-columns:1fr}
+  .bento-lg,.bento-md,.bento-sm,.bento-wide,.bento-narrow{grid-column:span 1}
+  .knobs-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr}
+  .img-table-head,.img-table-row{grid-template-columns:1fr 1fr 2fr;font-size:.82rem}
+}
+@media(max-width:640px){
+  .nav-links{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;gap:0;padding:0;
+    background:rgba(247,245,240,.97);backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{padding:.8rem 1.5rem;border-bottom:1px solid var(--border-light);font-size:.88rem}
+  .nav-links .nav-cta{margin:.7rem 1.5rem;text-align:center}
+  .nav-toggle{display:block}
+  .hero{padding:6.5rem 0 3.5rem}
+  .hero-badge{bottom:-.8rem;left:-.3rem;padding:.55rem .85rem}
+  .img-table-head,.img-table-row{grid-template-columns:1fr;gap:.25rem}
+  .img-table-head>*,.img-table-row>*:not(:first-child){display:none}
+  .footer-inner{flex-direction:column;text-align:center}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:0s!important;transition-duration:0s!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav id="nav">
+  <div class="wrap">
+    <a class="nav-brand" href="#"><img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/assets/taste-skill-logo.webp" alt="">Taste Skill</a>
+    <button class="nav-toggle" aria-label="菜单" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="6" x2="17" y2="6"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="14" x2="17" y2="14"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="#install">安装</a>
+      <a href="#skills">技能</a>
+      <a href="#settings">设置</a>
+      <a href="#examples">示例</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta" href="https://github.com/Leonxlnx/taste-skill" target="_blank">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-label reveal">Agent Skills Framework</div>
+        <h1 class="reveal reveal-d1">Taste Skill<br><em>品味技能</em></h1>
+        <p class="hero-sub reveal reveal-d2">面向 AI 代理的反"套路"前端框架</p>
+        <p class="hero-desc reveal reveal-d3">可移植的 Agent 技能，用于提升 AI 构建的界面品质。在布局、排版、动效和留白上更讲究，而不是生成千篇一律的 UI。支持与 ChatGPT、Codex、Cursor、Claude Code 配合使用。</p>
+        <div class="hero-actions reveal reveal-d4">
+          <a class="btn btn-primary" href="https://tasteskill.dev" target="_blank">访问 tasteskill.dev</a>
+          <a class="btn btn-ghost" href="#install">快速安装</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal reveal-d3">
+        <div class="hero-img-wrap">
+          <img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/assets/readme-banner.png" alt="Taste Skill Banner">
+        </div>
+        <div class="hero-badge">
+          <img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/assets/taste-skill-logo.webp" alt="">
+          <div class="hero-badge-text"><strong>MIT 开源</strong><span>Codex / Cursor / Claude</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Disclaimer -->
+<section style="padding:1.5rem 0">
+  <div class="wrap">
+    <div class="disclaimer-bar reveal">
+      <strong>免责声明</strong> &mdash; Taste Skill 没有官方发行的代币、硬币或加密项目。任何使用作者姓名、形象或本项目名义的代币都与作者无关，也未获得其认可。
+    </div>
+  </div>
+</section>
+
+<!-- Install -->
+<section id="install">
+  <div class="wrap">
+    <div class="s-label reveal">Getting Started</div>
+    <h2 class="s-title reveal reveal-d1">安装</h2>
+    <p class="s-desc reveal reveal-d2">
+      <a href="https://github.com/vercel-labs/agent-skills"><code>npx skills add</code></a> CLI 会扫描仓库的 <code>skills/</code> 目录，所有技能安装方式完全相同。你也可以将 SKILL.md 直接复制到项目中或粘贴到对话里。
+    </p>
+    <div class="install-grid">
+      <div class="code-card reveal">
+        <div class="code-card-head"><span>install-all.sh</span><button class="copy-btn" onclick="copyCode(this)">复制</button></div>
+        <pre>npx skills add https://github.com/Leonxlnx/taste-skill</pre>
+      </div>
+      <div class="code-card reveal reveal-d1">
+        <div class="code-card-head"><span>install-single.sh</span><button class="copy-btn" onclick="copyCode(this)">复制</button></div>
+        <pre>npx skills add https://github.com/Leonxlnx/taste-skill \
+  --skill "design-taste-frontend"</pre>
+      </div>
+      <div class="code-card reveal reveal-d2">
+        <div class="code-card-head"><span>upgrade-v2.sh</span><button class="copy-btn" onclick="copyCode(this)">复制</button></div>
+        <pre>npx skills add https://github.com/Leonxlnx/taste-skill \
+  --skill "design-taste-frontend"</pre>
+      </div>
+      <div class="code-card reveal reveal-d3">
+        <div class="code-card-head"><span>pin-v1.sh</span><button class="copy-btn" onclick="copyCode(this)">复制</button></div>
+        <pre>npx skills add https://github.com/Leonxlnx/taste-skill \
+  --skill "design-taste-frontend-v1"</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="wrap">
+    <div class="s-label reveal">Skill Registry</div>
+    <h2 class="s-title reveal reveal-d1">技能一览</h2>
+    <p class="s-desc reveal reveal-d2">每个技能只做一件事。<strong>实现类技能</strong>输出代码，<strong>图像生成类技能</strong>仅输出参考图像。</p>
+
+    <div class="bento">
+      <div class="bento-card bento-lg reveal">
+        <div>
+          <div class="bento-tag">v2 Experimental</div>
+          <h3>taste-skill</h3>
+          <p>读取需求、推断设计语言、调节三个旋钮。包含需求推断、设计系统映射、硬性长破折号禁令、规范的 GSAP 代码骨架、改版审计流程、严格的前置检查。正在积极迭代以推出 v2.0.0 稳定版。</p>
+        </div>
+        <div class="install-name">npx skills add ... --skill "design-taste-frontend"</div>
+      </div>
+      <div class="bento-card bento-md reveal reveal-d1">
+        <div>
+          <div class="bento-tag">GPT / Codex</div>
+          <h3>gpt-tasteskill</h3>
+          <p>针对 GPT/Codex 的更严格变体：更高的布局差异度、更强的 GSAP 方向感、更激进的反套路策略。</p>
+        </div>
+        <div class="install-name">--skill "gpt-taste"</div>
+      </div>
+      <div class="bento-card bento-sm reveal reveal-d2">
+        <div>
+          <div class="bento-tag">Stable</div>
+          <h3>taste-skill-v1</h3>
+          <p>原始 v1 版本，为依赖其确切行为的项目保留。</p>
+        </div>
+        <div class="install-name">--skill "design-taste-frontend-v1"</div>
+      </div>
+      <div class="bento-card bento-md reveal">
+        <div>
+          <div class="bento-tag">Image Pipeline</div>
+          <h3>image-to-code</h3>
+          <p>以图像为先的流程：生成网站参考图，分析它们，然后实现与之匹配的前端。</p>
+        </div>
+        <div class="install-name">--skill "image-to-code"</div>
+      </div>
+      <div class="bento-card bento-sm reveal reveal-d1">
+        <div>
+          <div class="bento-tag">Refactor</div>
+          <h3>redesign-skill</h3>
+          <p>先审计 UI，再修复布局、留白、层级、样式。</p>
+        </div>
+        <div class="install-name">--skill "redesign-existing-projects"</div>
+      </div>
+      <div class="bento-card bento-sm reveal reveal-d2">
+        <div>
+          <div class="bento-tag">Output</div>
+          <h3>output-skill</h3>
+          <p>完整输出，禁止占位注释。</p>
+        </div>
+        <div class="install-name">--skill "full-output-enforcement"</div>
+      </div>
+      <div class="bento-card bento-wide reveal">
+        <div>
+          <div class="bento-tag">Luxury</div>
+          <h3>soft-skill</h3>
+          <p>精致、平静、奢华的 UI：柔和对比、充足留白、优质字体、弹性动效。适用于视觉方向已确定的高端产品展示页面和品牌官网。</p>
+        </div>
+        <div class="install-name">--skill "high-end-visual-design"</div>
+      </div>
+      <div class="bento-card bento-narrow reveal reveal-d1">
+        <div>
+          <div class="bento-tag">Editorial</div>
+          <h3>minimalist</h3>
+          <p>Notion/Linear 风格，克制的配色。</p>
+        </div>
+        <div class="install-name">--skill "minimalist-ui"</div>
+      </div>
+      <div class="bento-card bento-md reveal">
+        <div>
+          <div class="bento-tag">Industrial</div>
+          <h3>brutalist-skill</h3>
+          <p>强硬机械感语言：瑞士字体、锐利对比、实验性布局。</p>
+        </div>
+        <div class="install-name">--skill "industrial-brutalist-ui"</div>
+      </div>
+      <div class="bento-card bento-md reveal reveal-d1">
+        <div>
+          <div class="bento-tag">Compatibility</div>
+          <h3>stitch-skill</h3>
+          <p>兼容 Google Stitch 的规则，包含可选的 DESIGN.md 导出格式。</p>
+        </div>
+        <div class="install-name">--skill "stitch-design-taste"</div>
+      </div>
+    </div>
+
+    <!-- Image-gen skills -->
+    <div style="margin-top:3.5rem">
+      <h3 class="reveal" style="font-family:var(--font-heading);font-size:1rem;font-weight:700;color:var(--ink);letter-spacing:-.015em;margin-bottom:.45rem">图像生成类技能</h3>
+      <p class="reveal reveal-d1" style="font-size:.85rem;color:var(--ink-60);margin-bottom:1.25rem">仅生成设计参考图（不含代码），可与 ChatGPT Images、Codex 图像模式配合使用。</p>
+      <div class="img-table reveal reveal-d2">
+        <div class="img-table-head"><span>技能</span><span>安装名</span><span>说明</span></div>
+        <div class="img-table-row"><strong>imagegen-frontend-web</strong><code>imagegen-frontend-web</code><span>网站构图：首页、着陆页、多区块页面</span></div>
+        <div class="img-table-row"><strong>imagegen-frontend-mobile</strong><code>imagegen-frontend-mobile</code><span>移动端屏幕与流程：iOS/Android/跨平台</span></div>
+        <div class="img-table-row"><strong>brandkit</strong><code>brandkit</code><span>品牌套件板：Logo、配色、字体</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Settings -->
+<section id="settings">
+  <div class="wrap">
+    <div class="s-label reveal">Configuration</div>
+    <h2 class="s-title reveal reveal-d1">参数旋钮</h2>
+    <p class="s-desc reveal reveal-d2">技能文件顶部的数字是 1-10 范围的三个旋钮，用于精细控制输出风格。仅适用于 taste-skill。</p>
+    <div class="knobs-grid">
+      <div class="knob-card reveal">
+        <h3>DESIGN_VARIANCE</h3>
+        <div class="knob-range">1 - 10</div>
+        <p>布局实验性。低值为居中/规整布局，高值为非对称/现代感。</p>
+        <div class="knob-visual"><div class="knob-visual-fill" style="width:55%"></div></div>
+      </div>
+      <div class="knob-card reveal reveal-d1">
+        <h3>MOTION_INTENSITY</h3>
+        <div class="knob-range">1 - 10</div>
+        <p>动效深度。低值为悬停微动效，高值为滚动联动/磁吸动效。</p>
+        <div class="knob-visual"><div class="knob-visual-fill" style="width:68%"></div></div>
+      </div>
+      <div class="knob-card reveal reveal-d2">
+        <h3>VISUAL_DENSITY</h3>
+        <div class="knob-range">1 - 10</div>
+        <p>每屏信息密度。低值为宽敞通透，高值为密集仪表板风格。</p>
+        <div class="knob-visual"><div class="knob-visual-fill" style="width:42%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Examples -->
+<section id="examples">
+  <div class="wrap">
+    <div class="s-label reveal">Showcase</div>
+    <h2 class="s-title reveal reveal-d1">示例作品</h2>
+    <p class="s-desc reveal reveal-d2">使用 taste-skill 制作的界面示例。</p>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal"><img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/examples/floria-top.webp" alt="Floria 示例上"></div>
+      <div class="gallery-item reveal reveal-d1"><img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/examples/floria-bottom.webp" alt="Floria 示例下"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Feedback -->
+<section>
+  <div class="wrap">
+    <div class="s-label reveal">Community</div>
+    <h2 class="s-title reveal reveal-d1">反馈与贡献</h2>
+    <p class="s-desc reveal reveal-d2">建议和 Bug 报告可通过以下方式提交：</p>
+    <div style="display:flex;gap:.85rem;flex-wrap:wrap" class="reveal reveal-d3">
+      <a class="btn btn-ghost" href="https://github.com/Leonxlnx/taste-skill" target="_blank">GitHub Issues / PR</a>
+      <a class="btn btn-ghost" href="https://x.com/lexnlin" target="_blank">@lexnlin</a>
+      <a class="btn btn-ghost" href="https://x.com/blueemi99" target="_blank">@blueemi99</a>
+      <a class="btn btn-ghost" href="mailto:hello@tasteskill.dev">hello@tasteskill.dev</a>
+    </div>
+  </div>
+</section>
+
+<!-- Sponsors -->
+<section>
+  <div class="wrap">
+    <div class="s-label reveal">Sponsors</div>
+    <h2 class="s-title reveal reveal-d1">赞助者</h2>
+    <p class="s-desc reveal reveal-d2">如果 Taste Skill 对你有所帮助，欢迎<a href="https://github.com/sponsors/Leonxlnx" target="_blank">在 GitHub 上赞助</a>支持。</p>
+    <div class="sponsor-grid reveal reveal-d3">
+      <a class="sponsor-avatar" href="https://github.com/dnakov" target="_blank" title="dnakov"><img src="https://github.com/dnakov.png" alt=""></a>
+      <a class="sponsor-avatar" href="https://github.com/AkramReshad" target="_blank" title="AkramReshad"><img src="https://github.com/AkramReshad.png" alt=""></a>
+      <a class="sponsor-avatar" href="https://github.com/ajmalaksar25" target="_blank" title="ajmalaksar25"><img src="https://github.com/ajmalaksar25.png" alt=""></a>
+      <a class="sponsor-avatar" href="https://github.com/krikkkk" target="_blank" title="krikkkk"><img src="https://github.com/krikkkk.png" alt=""></a>
+      <a class="sponsor-avatar" href="https://github.com/navanchauhan" target="_blank" title="navanchauhan"><img src="https://github.com/navanchauhan.png" alt=""></a>
+      <a class="sponsor-avatar" href="https://github.com/robinebers" target="_blank" title="robinebers"><img src="https://github.com/robinebers.png" alt=""></a>
+      <a class="sponsor-avatar" href="https://github.com/JKc66" target="_blank" title="JKc66"><img src="https://github.com/JKc66.png" alt=""></a>
+      <a class="sponsor-avatar" href="https://github.com/u2393696078-rgb" target="_blank" title="u2393696078-rgb"><img src="https://github.com/u2393696078-rgb.png" alt=""></a>
+      <a class="sponsor-avatar" href="https://github.com/a-human-created-this" target="_blank" title="a-human-created-this"><img src="https://github.com/a-human-created-this.png" alt=""></a>
+      <a class="sponsor-avatar" href="https://github.com/AtharvaJaiswal005" target="_blank" title="AtharvaJaiswal005"><img src="https://github.com/AtharvaJaiswal005.png" alt=""></a>
+      <a class="sponsor-avatar" href="https://github.com/ghughes7" target="_blank" title="ghughes7"><img src="https://github.com/ghughes7.png" alt=""></a>
+      <a class="sponsor-avatar" href="https://github.com/mccun934" target="_blank" title="mccun934"><img src="https://github.com/mccun934.png" alt=""></a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="s-label reveal">FAQ</div>
+    <h2 class="s-title reveal reveal-d1">常见问题</h2>
+    <div class="faq-list" style="margin-top:1.5rem">
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">这与其他 AI 设计技能有什么不同？<span class="faq-icon"></span></div>
+        <div class="faq-a">多个专项变体、关键技能中可调节的旋钮，以及由专门研究支撑的反重复规则。所有规则在主流编码代理之间与框架无关。</div>
+      </div>
+      <div class="faq-item reveal reveal-d1">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">支持 React、Vue、Svelte 吗？<span class="faq-icon"></span></div>
+        <div class="faq-a">支持。规则针对的是设计意图，而非某个单一框架的 API。无论使用哪种前端框架，都能获得一致的设计品质提升。</div>
+      </div>
+      <div class="faq-item reveal reveal-d2">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">SKILL.md 是什么？<span class="faq-icon"></span></div>
+        <div class="faq-a">一种可移植的指令文件，代理可自动加载；通过 <code>npx skills add</code> 安装，或直接复制到仓库或对话中。</div>
+      </div>
+      <div class="faq-item reveal reveal-d3">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">图像生成类技能也能用 npx skills add 安装吗？<span class="faq-icon"></span></div>
+        <div class="faq-a">可以。它们与代码类技能一同放在 skills/ 目录下，因此同一个 CLI 可以发现并安装它们。</div>
+      </div>
+      <div class="faq-item reveal reveal-d4">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">如何从 v1 升级到 v2？<span class="faq-icon"></span></div>
+        <div class="faq-a">安装名未变，只需重新运行安装命令即可原地覆盖旧版本。如需固定 v1，可安装 design-taste-frontend-v1。完整差异请参阅 CHANGELOG.md。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Star History -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="star-history reveal">
+      <a href="https://www.star-history.com/leonxlnx/taste-skill" target="_blank">
+        <picture>
+          <source media="(prefers-color-scheme:dark)" srcset="https://api.star-history.com/badge?repo=Leonxlnx/taste-skill&theme=dark">
+          <source media="(prefers-color-scheme:light)" srcset="https://api.star-history.com/badge?repo=Leonxlnx/taste-skill">
+          <img alt="Star History" src="https://api.star-history.com/badge?repo=Leonxlnx/taste-skill">
+        </picture>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="https://tasteskill.dev" target="_blank">tasteskill.dev</a>
+        <a href="https://github.com/Leonxlnx/taste-skill" target="_blank">GitHub</a>
+        <a href="https://github.com/Leonxlnx/taste-skill/blob/main/CHANGELOG.md" target="_blank">更新日志</a>
+        <a href="https://github.com/Leonxlnx/taste-skill/tree/main/research" target="_blank">研究</a>
+        <a href="https://github.com/Leonxlnx/taste-skill/blob/main/LICENSE" target="_blank">许可证</a>
+      </div>
+      <div class="footer-copy">MIT License &copy; 2026 Leonxlnx</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+let ticking=false;
+window.addEventListener('scroll',()=>{
+  if(!ticking){requestAnimationFrame(()=>{nav.classList.toggle('scrolled',window.scrollY>30);ticking=false});ticking=true}
+});
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})
+},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+function copyCode(btn){
+  const pre=btn.closest('.code-card').querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(()=>{
+    btn.textContent='已复制';setTimeout(()=>{btn.textContent='复制'},1600)
+  });
+}
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.nav-links').classList.remove('open')));
+</script>
+</body>
+</html>
