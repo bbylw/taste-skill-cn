@@ -24,7 +24,7 @@
 
 <p align="center">
 <a href="https://github.com/Leonxlnx/taste-skill/stargazers"><img src="https://img.shields.io/github/stars/Leonxlnx/taste-skill?style=for-the-badge&logo=github&labelColor=1e293b&color=fbbf24" alt="GitHub stars"/></a>
-<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-fbbf24?style=for-the-badge&labelColor=1e293b" alt="MIT License"/></a>
+<a href="https://github.com/Leonxlnx/taste-skill/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-fbbf24?style=for-the-badge&labelColor=1e293b" alt="MIT License"/></a>
 <a href="#installing"><img src="https://img.shields.io/badge/Tools-Codex%20%C2%B7%20Cursor%20%C2%B7%20Claude-111827?style=for-the-badge&labelColor=1e293b" alt="支持的代理"/></a>
 <a href="https://www.tasteskill.dev/changelog"><img src="https://img.shields.io/badge/Changelog-Latest-059669?style=for-the-badge&labelColor=1e293b" alt="tasteskill.dev 更新日志"/></a>
 </p>
@@ -77,7 +77,7 @@ npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-fro
 npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend-v1"
 ```
 
-完整的 v1 到 v2 差异及改动理由请参阅 [CHANGELOG.md](CHANGELOG.md)。
+完整的 v1 到 v2 差异及改动理由请参阅 [CHANGELOG.md](https://github.com/Leonxlnx/taste-skill/blob/main/CHANGELOG.md)。
 
 ## 技能
 
@@ -111,7 +111,7 @@ npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-fro
 
 ### 我该用哪个？
 
-- 首先使用 **taste-skill** 作为最稳妥的通用默认（现为 v2 实验版，详见 [CHANGELOG](CHANGELOG.md)）。
+- 首先使用 **taste-skill** 作为最稳妥的通用默认（现为 v2 实验版，详见 [CHANGELOG](https://github.com/Leonxlnx/taste-skill/blob/main/CHANGELOG.md)）。
 - 如果你依赖原始 taste-skill 的确切行为，请改装 **taste-skill-v1**。  
 - 当你希望使用更严格的、面向 GPT/Codex 的规则以及动效/布局约束时，使用 **gpt-taste**。  
 - 使用 **image-to-code-skill** 走 "图像 → 分析 → 代码" 的工作流。  
@@ -182,7 +182,7 @@ npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-fro
 ## 研究
 
 <a id="research"></a>
-塑造这些技能的背景文章位于 [`research/`](research/)。
+塑造这些技能的背景文章位于 [`research/`](https://github.com/Leonxlnx/taste-skill/tree/main/research)。
 
 ## 常见问题
 
@@ -202,4 +202,4 @@ npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-fro
 ## 许可证
 
 <a id="license"></a>
-[MIT 许可证](LICENSE) · 版权所有 (c) 2026 Leonxlnx
+[MIT 许可证](https://github.com/Leonxlnx/taste-skill/blob/main/LICENSE) · 版权所有 (c) 2026 Leonxlnx
