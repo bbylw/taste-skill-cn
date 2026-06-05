@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/readme-banner.png" alt="Taste Skill - 面向高端前端的反套路 Agent 技能" width="100%" />
+  <img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/assets/readme-banner.png" alt="Taste Skill - 面向高端前端的反套路 Agent 技能" width="100%" />
 </p>
 
 # Taste Skill（品味技能）
@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://tasteskill.dev" title="Taste Skill - tasteskill.dev">
-    <img src="assets/taste-skill-logo.webp" width="80" height="80" alt="Taste Skill" />
+    <img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/assets/taste-skill-logo.webp" width="80" height="80" alt="Taste Skill" />
   </a>
 </p>
 
@@ -138,8 +138,8 @@ npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-fro
 使用 taste-skill 制作：
 
 <p>
-  <img src="examples/floria-top.webp" width="400" />
-  <img src="examples/floria-bottom.webp" width="400" />
+  <img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/examples/floria-top.webp" width="400" />
+  <img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/examples/floria-bottom.webp" width="400" />
 </p>
 
 ## 支持本项目
