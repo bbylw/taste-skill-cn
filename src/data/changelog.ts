@@ -15,7 +15,7 @@ export type Release = {
   groups: ChangeGroup[];
 };
 
-/** 内容取自上游 CHANGELOG.md，按中文站阅读习惯重组 */
+/** 内容取自上游 CHANGELOG.md，按中文阅读习惯重组 */
 export const RELEASES: Release[] = [
   {
     version: '2.0.0',

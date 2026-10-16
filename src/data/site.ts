@@ -1,11 +1,11 @@
 /**
  * 站点常量与外部链接。
  * 上游（技能本体、Star、Issue）指向 Leonxlnx/taste-skill；
- * 本站自身（中文站的源码与部署）指向 bbylw/taste-skill-cn。
+ * 本站自身（源码与部署）指向 bbylw/taste-skill-cn。
  */
 
 export const SITE = {
-  title: 'Taste Skill 中文站',
+  title: 'Taste Skill',
   shortName: 'Taste Skill',
   tagline: '面向 AI Agent 的反套路前端框架',
   description:

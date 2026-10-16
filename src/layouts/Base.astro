@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { title, description = SITE.description, fullTitle = false } = Astro.props;
-const pageTitle = fullTitle ? title : `${title} | ${SITE.shortName} 中文站`;
+const pageTitle = fullTitle ? title : `${title} | ${SITE.shortName}`;
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', SITE.url).href;
 const ogImage = new URL('/images/banner.webp', SITE.url).href;
 ---
