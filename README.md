@@ -1,160 +1,248 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/assets/readme-banner.png" alt="Taste Skill - 面向高端前端的反套路 Agent 技能" width="100%" />
-</p>
-
-# Taste Skill（品味技能）
-
-<p align="center">
-  <em>面向 AI 代理的反"套路"前端框架</em>
+  <img src="public/images/banner.webp" alt="Taste Skill — 面向 AI 代理的反「套路」前端框架" width="100%" />
 </p>
 
 <p align="center">
-  <a href="https://tasteskill.dev" title="Taste Skill - tasteskill.dev">
-    <img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/assets/taste-skill-logo.webp" width="80" height="80" alt="Taste Skill" />
-  </a>
+  <a href="https://taste.ndjp.net"><img src="https://img.shields.io/badge/中文站-taste.ndjp.net-24292f?style=flat" alt="中文站" /></a>
+  &nbsp;
+  <a href="https://tasteskill.dev"><img src="https://img.shields.io/badge/官网-tasteskill.dev-24292f?style=flat" alt="tasteskill.dev" /></a>
+  &nbsp;
+  <a href="https://tastecode.dev"><img src="https://img.shields.io/badge/新品-TasteCode-ff6b00?style=flat" alt="新品：TasteCode" /></a>
+  &nbsp;
+  <a href="LICENSE"><img src="https://img.shields.io/badge/许可证-MIT-24292f?style=flat&amp;logo=github&amp;logoColor=white" alt="MIT 许可证" /></a>
+  &nbsp;
+  <a href="https://github.com/vercel-labs/agent-skills"><img src="https://img.shields.io/badge/Agent_Skills-兼容-24292f?style=flat" alt="兼容 Agent Skills" /></a>
+  &nbsp;
+  <a href="https://github.com/Leonxlnx/taste-skill/blob/main/CHANGELOG.md"><img src="https://img.shields.io/badge/更新日志-v2.0.0-24292f?style=flat" alt="更新日志" /></a>
 </p>
 
 <p align="center">
-  <a href="https://tasteskill.dev">
-    <img src="https://img.shields.io/badge/OPEN-tasteskill.dev-%23a855f7?style=for-the-badge&labelColor=%230f172a" alt="打开 tasteskill.dev" />
-  </a>
+  <a href="https://tastecode.dev"><img src="public/images/tastecode.webp" alt="TasteCode 来了：Taste Skill 的桌面应用，内置设计代理，免费开源，在 tastecode.dev 下载" width="100%" /></a>
 </p>
 
-可移植的 **Agent 技能**，用于提升 AI 构建的界面品质：在布局、排版、动效和留白上更讲究，而不是生成看起来千篇一律的 UI。本仓库还包含用于参考板（网页、移动端、品牌套件）的**图像生成技能**。可与 **ChatGPT Images** 或类似的生成器配合使用，然后将生成的画面交给 Codex、Cursor 或 Claude Code 来实现。
+<p align="center"><sub>想最省事地拿到 Taste Skill 的效果：<a href="https://tastecode.dev"><strong>下载 TasteCode</strong></a>。它的设计代理会先跟你对齐需求，再动手构建，然后用眼睛复查界面。<a href="https://github.com/Leonxlnx/tastecode">源码在 GitHub</a>。</sub></p>
 
-<p align="center">
-<a href="https://github.com/Leonxlnx/taste-skill/stargazers"><img src="https://img.shields.io/github/stars/Leonxlnx/taste-skill?style=for-the-badge&logo=github&labelColor=1e293b&color=fbbf24" alt="GitHub stars"/></a>
-<a href="https://github.com/Leonxlnx/taste-skill/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-fbbf24?style=for-the-badge&labelColor=1e293b" alt="MIT License"/></a>
-<a href="#installing"><img src="https://img.shields.io/badge/Tools-Codex%20%C2%B7%20Cursor%20%C2%B7%20Claude-111827?style=for-the-badge&labelColor=1e293b" alt="支持的代理"/></a>
-<a href="https://www.tasteskill.dev/changelog"><img src="https://img.shields.io/badge/Changelog-Latest-059669?style=for-the-badge&labelColor=1e293b" alt="tasteskill.dev 更新日志"/></a>
-</p>
+<h3 align="center">赞助者</h3>
 
-## 免责声明
+<table align="center">
+  <tr>
+    <td align="center" width="104"><a href="https://fluxionai.space/register?source=github&amp;campaign=github-tasteskill&amp;promo=TASTESKILL"><img src="public/images/sponsors/sidrune-ai.png" alt="Sidrune AI" width="80" height="80" /></a></td>
+    <td><sub><a href="https://fluxionai.space/register?source=github&amp;campaign=github-tasteskill&amp;promo=TASTESKILL"><strong>Sidrune AI</strong></a>：一个 API 接入 GPT、Claude 等主流模型。<br />通过这个链接注册可获 3 美元 API 额度。</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="104">
+      <a href="https://interfaces.dev/?utm_source=tasteskill&amp;utm_medium=sponsorship">
+        <img src="public/images/sponsors/interfaces-dev-icon.webp" alt="Interfaces" width="52" height="52" />
+      </a>
+    </td>
+    <td><sub><a href="https://interfaces.dev/?utm_source=tasteskill&amp;utm_medium=sponsorship"><strong>interfaces.dev</strong></a> · 设计工程杂志，由 <a href="https://github.com/jakubkrehel"><strong>Jakub Krehel</strong></a> 主理</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="104">
+      <a href="https://reactbits.dev">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="public/images/sponsors/reactbits-icon-dark.svg" />
+          <img src="public/images/sponsors/reactbits-icon-light.svg" alt="React Bits" width="52" height="52" />
+        </picture>
+      </a>
+    </td>
+    <td><sub><a href="https://reactbits.dev"><strong>React Bits</strong></a> · 面向创意界面的动画 React 组件库</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="104"><a href="https://img.ly/"><img src="public/images/sponsors/imgly-logo.svg" alt="IMG.LY" width="52" height="52" /></a></td>
+    <td><sub><a href="https://img.ly/"><strong>IMG.LY</strong></a> · CreativeEditor SDK</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="104"><a href="https://www.sent.dm"><img src="public/images/sponsors/sentdm.png" alt="Sent.dm" width="52" height="52" /></a></td>
+    <td><sub><a href="https://www.sent.dm"><strong>Sent.dm</strong></a> · SMS、WhatsApp 与 RCS 的消息 API</sub></td>
+  </tr>
+</table>
 
-<a id="disclaimer"></a>
-Taste Skill 没有官方发行的代币、硬币或加密项目。任何使用我本人姓名、形象或本项目名义的代币都与我无关，也未获得我的认可。
+<p align="center"><sub><a href="https://github.com/sponsors/Leonxlnx">成为赞助者</a></sub></p>
 
-<p align="center"><sub><a href="#disclaimer">免责声明</a> · <a href="#installing">安装</a> · <a href="#skills">技能</a> · <a href="#settings-taste-skill-only">设置</a> · <a href="#examples">示例</a> · <a href="#support-the-project">赞助</a> · <a href="#research">研究</a> · <a href="#common-questions">常见问题</a> · <a href="#license">许可证</a></sub></p>
+**Taste Skill（品味技能）** 是一组 Agent 技能，它让编码代理去「做设计」，而不是拼出那个平均值的落地页。默认技能给代理一套艺术指导、真实图片，以及一个在真实浏览器里检查自己作品的办法。
 
-## 反馈与贡献
+它建出来的页面，每一个都来自一份简短需求：
 
-我们非常欢迎你的反馈。建议和 Bug 报告可通过以下方式提交：
+<table>
+  <tr>
+    <td width="50%"><img src="public/images/examples/coffee-storefront.webp" alt="以一幅手绘店面作为首屏的咖啡店页面" /></td>
+    <td width="50%"><img src="public/images/examples/night-dates.webp" alt="把日期嵌进档案照片里的 techno 夜场页面" /></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="public/images/examples/coffee-roast.webp" alt="咖啡店页面的烘焙度区块，用四张照片讲清楚" /></td>
+    <td width="50%"><img src="public/images/examples/coffee-questions.webp" alt="咖啡店页面的问答区块，做成叠起来的索引卡" /></td>
+  </tr>
+</table>
 
-- 在 GitHub 上发起 Pull Request 或 Issue  
-- 私信 Twitter [@lexnlin](https://x.com/lexnlin) 或 [@blueemi99](https://x.com/blueemi99)  
-- 发送邮件至 [hello@tasteskill.dev](mailto:hello@tasteskill.dev)
+这些照片都是真实的，从开放档案里找出来，并由技能逐一署名（[署名清单](https://github.com/Leonxlnx/taste-skill/blob/main/examples/v2/CREDITS.md)）。可以看看[发布影片](https://github.com/Leonxlnx/taste-skill/releases/tag/v2.0.0)。
+
+<p align="center"><sub><a href="#安装">安装</a> · <a href="#v2-是怎么工作的">工作原理</a> · <a href="#技能">技能</a> · <a href="#常见问题">常见问题</a> · <a href="#支持本项目">赞助</a> · <a href="#本站">关于本站</a> · <a href="#许可证">许可证</a></sub></p>
 
 ## 安装
-
-<a id="installing"></a>
-[`npx skills add`](https://github.com/vercel-labs/agent-skills) CLI 会扫描本仓库的 `skills/` 目录，因此**下方所有技能（代码类与图像生成类）的安装方式完全相同。**
 
 ```bash
 npx skills add https://github.com/Leonxlnx/taste-skill
 ```
 
-通过技能的**安装名**（SKILL frontmatter 中的 `name:` 字段，不是文件夹名）安装单个技能：
+这条命令会用 [`npx skills`](https://github.com/vercel-labs/agent-skills) CLI 装上仓库里的每一个技能。只装一个的话，传入它的**安装名**：
 
 ```bash
 npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend"
 ```
 
-你也可以将任何 `SKILL.md` 复制到你的项目中，或粘贴到 ChatGPT / Codex 对话中。
+默认技能用 **Node 22+** 运行它的脚本，并且需要一个已安装的 **Chrome、Edge 或 Chromium**。它不安装任何东西，也不需要 API Key；只有找图片时需要联网。
 
-### 从旧版本升级
+<details>
+<summary>Claude Code 插件</summary>
 
-默认的 `taste-skill`（安装名 `design-taste-frontend`）现在是 **v2（实验性）**，是对原版 v1 的大幅重写。如果你已经安装了 v1，只需重新运行安装命令即可升级：
+在 Claude Code 里运行。每个技能都带 `taste-skill:` 前缀，所以不会和你已有的技能撞名。
 
-```bash
-npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend"
+```
+/plugin marketplace add Leonxlnx/taste-skill
+/plugin install taste-skill@taste-skill
 ```
 
-安装名未变，因此无需更新任何脚本。新的 SKILL.md 会原地覆盖旧版本。
+以后用 `/plugin update` 升级。
 
-如果你依赖 v1 的确切行为并希望明确固定到该版本：
+</details>
+
+<details>
+<summary>Codex 插件</summary>
 
 ```bash
-npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend-v1"
+codex plugin marketplace add Leonxlnx/taste-skill
+codex plugin add taste-skill@taste-skill
 ```
 
-完整的 v1 到 v2 差异及改动理由请参阅 [CHANGELOG.md](https://github.com/Leonxlnx/taste-skill/blob/main/CHANGELOG.md)。
+装完之后新开一个 Codex 会话，技能才会被加载。
+
+</details>
+
+<details>
+<summary>从克隆安装：链接而不是复制</summary>
+
+`./install.sh` 会把技能软链到 Claude Code 的技能目录（`--codex` 指向 Codex，`--all-agents` 两个都指），这样一次 `git pull` 就能原地更新它们。`./install.sh --list` 会列出所有安装名。
+
+</details>
+
+已经装过了？重新运行一遍安装命令即可。安装名没有变过，旧版本也仍然以各自的安装名保留着（见[技能](#技能)）。
+
+## v2 是怎么工作的
+
+默认技能出自一项对 247 个精选站点的研究。一次构建走六个步骤：
+
+1. 读取需求，列出只有这个客户才有的东西。
+2. 脚本从 20 个研究过的方向里发出三张牌，代理选一张。
+3. 立论：用一句话把客户自己的素材和那个方向的手法系在一起。
+4. 用开放馆藏里的真实图片与影像构建页面，并逐一署名。
+5. 在三个宽度下的真实浏览器里检查页面，发现套路就判失败。
+6. 看自己的截图，修掉最差的三处问题，最多三轮。
+
+一次构建大约需要 30 到 45 分钟、几十万 tokens。细节见[更新日志](https://github.com/Leonxlnx/taste-skill/blob/main/CHANGELOG.md)与[研究文档](https://github.com/Leonxlnx/taste-skill/blob/main/skills/taste-skill/references/research.md)。
 
 ## 技能
 
-<a id="skills"></a>
-每个技能只做一件事；你不必一次安装所有。**实现类技能**输出代码。**图像生成类技能**仅输出参考图像。
+每个技能只做一件事，你不必全都装。**安装名**就是传给 `--skill` 的那个值。
 
-`Install name` 列是你传递给 `--skill` 的确切值。
-
-| 技能（文件夹） | 安装名 | 说明 |
+| 技能 | 安装名 | 说明 |
 | --- | --- | --- |
-| **taste-skill** | `design-taste-frontend` | 🆕 **v2（实验性）** — 对默认技能的大幅重写。读取需求、推断设计语言、调节三个旋钮（VARIANCE / MOTION / DENSITY）。包含需求推断、设计系统映射、硬性长破折号禁令、规范的 GSAP 代码骨架、改版审计流程、严格的前置检查。正在积极迭代以推出 v2.0.0 稳定版。 |
-| **taste-skill-v1** | `design-taste-frontend-v1` | 原始 v1 版本的 taste-skill，为依赖其确切行为的项目保留。仅当 v2 默认版本破坏了你的工作流中某些特定环节时才使用。 |
-| **gpt-tasteskill** | `gpt-taste` | 针对 GPT/Codex 的更严格变体：更高的布局差异度、更强的 GSAP 方向感、更激进的反套路策略。 |
-| **image-to-code-skill** | `image-to-code` | 以图像为先的流程：生成网站参考图，分析它们，然后实现与之匹配的前端。 |
-| **redesign-skill** | `redesign-existing-projects` | 适用于已有项目：先审计 UI，再修复布局、留白、层级、样式。 |
-| **soft-skill** | `high-end-visual-design` | 精致、平静、奢华的 UI：柔和对比、充足留白、优质字体、弹性动效。 |
-| **output-skill** | `full-output-enforcement` | 应对模型输出半成品的情况：完整输出，禁止占位注释。 |
-| **minimalist-skill** | `minimalist-ui` | 编辑型产品 UI（Notion/Linear 风格），克制的配色，清晰的结构。 |
-| **brutalist-skill** | `industrial-brutalist-ui` | 强硬机械感语言：瑞士字体、锐利对比、实验性布局。 |
-| **stitch-skill** | `stitch-design-taste` | 兼容 Google Stitch 的规则，包含可选的 `DESIGN.md` 导出格式。 |
+| **[taste-skill](https://github.com/Leonxlnx/taste-skill/blob/main/skills/taste-skill/SKILL.md)** | `design-taste-frontend` | v2。面向落地页、营销官网、作品集与产品页的艺术指导，任何技术栈都可用。工作方式如上。 |
 
-### 图像生成类技能
+<details>
+<summary>针对特定任务的技能（8 个）</summary>
 
-这些技能仅生成设计图（不含代码）。可与 ChatGPT Images、Codex 图像模式或任何支持生图的代理一起使用。
-
-| 技能（文件夹） | 安装名 | 说明 |
+| 技能 | 安装名 | 说明 |
 | --- | --- | --- |
-| **imagegen-frontend-web** | `imagegen-frontend-web` | 网站构图：首页、着陆页、多区块页面，强调排版、留白、反套路的艺术指导。 |
-| **imagegen-frontend-mobile** | `imagegen-frontend-mobile` | 移动端屏幕与流程：iOS/Android/跨平台、模型图、易读字体、统一的视觉风格。 |
-| **brandkit** | `brandkit` | 品牌套件板：Logo 方向、配色、字体、跨品类的视觉应用。 |
+| **[redesign-skill](https://github.com/Leonxlnx/taste-skill/blob/main/skills/redesign-skill/SKILL.md)** | `redesign-existing-projects` | 已有项目：先审计界面，再修布局、留白、层级与样式。 |
+| **[image-to-code-skill](https://github.com/Leonxlnx/taste-skill/blob/main/skills/image-to-code-skill/SKILL.md)** | `image-to-code` | 先生成网站参考图，分析它们，再实现与之匹配的前端。 |
+| **[gpt-tasteskill](https://github.com/Leonxlnx/taste-skill/blob/main/skills/gpt-tasteskill/SKILL.md)** | `gpt-taste` | 面向 GPT 与 Codex 的更严格变体：更高的布局差异度、更强的动效方向感。 |
+| **[soft-skill](https://github.com/Leonxlnx/taste-skill/blob/main/skills/soft-skill/SKILL.md)** | `high-end-visual-design` | 冷静、精致的界面：柔和对比、充足留白、弹性动效。 |
+| **[minimalist-skill](https://github.com/Leonxlnx/taste-skill/blob/main/skills/minimalist-skill/SKILL.md)** | `minimalist-ui` | 编辑型产品界面，克制的配色，清晰的结构。 |
+| **[brutalist-skill](https://github.com/Leonxlnx/taste-skill/blob/main/skills/brutalist-skill/SKILL.md)** | `industrial-brutalist-ui` | 强硬的机械感语言：瑞士字体、锐利的尺度对比、实验性布局。 |
+| **[stitch-skill](https://github.com/Leonxlnx/taste-skill/blob/main/skills/stitch-skill/SKILL.md)** | `stitch-design-taste` | 为 Google Stitch 准备的规则，可导出 `DESIGN.md`。 |
+| **[output-skill](https://github.com/Leonxlnx/taste-skill/blob/main/skills/output-skill/SKILL.md)** | `full-output-enforcement` | 应对模型交半成品：完整输出，禁止占位注释。 |
+
+</details>
+
+<details>
+<summary>图像生成类技能（3 个）</summary>
+
+这些技能只产出设计图，不写代码。配合 ChatGPT Images、Codex 图像模式，或任何能生图的代理使用，然后把画面交给你的编码代理。
+
+| 技能 | 安装名 | 说明 |
+| --- | --- | --- |
+| **[imagegen-frontend-web](https://github.com/Leonxlnx/taste-skill/blob/main/skills/imagegen-frontend-web/SKILL.md)** | `imagegen-frontend-web` | 网站构图：首屏、落地页、多区块页面。 |
+| **[imagegen-frontend-mobile](https://github.com/Leonxlnx/taste-skill/blob/main/skills/imagegen-frontend-mobile/SKILL.md)** | `imagegen-frontend-mobile` | iOS、Android 与跨平台的移动端屏幕与流程。 |
+| **[brandkit](https://github.com/Leonxlnx/taste-skill/blob/main/skills/brandkit/SKILL.md)** | `brandkit` | 品牌套件板：Logo 方向、配色、字体、应用。 |
+
+</details>
 
 ### 我该用哪个？
 
-- 首先使用 **taste-skill** 作为最稳妥的通用默认（现为 v2 实验版，详见 [CHANGELOG](https://github.com/Leonxlnx/taste-skill/blob/main/CHANGELOG.md)）。
-- 如果你依赖原始 taste-skill 的确切行为，请改装 **taste-skill-v1**。  
-- 当你希望使用更严格的、面向 GPT/Codex 的规则以及动效/布局约束时，使用 **gpt-taste**。  
-- 使用 **image-to-code-skill** 走 "图像 → 分析 → 代码" 的工作流。  
-- 使用 **redesign-skill** 改进已有代码库，而不是从零开始做样式。  
-- 当视觉方向已经确定时，叠加 **soft-skill**、**minimalist-skill** 或 **brutalist-skill**。  
-- 如果代理经常截断输出，请加入 **output-skill**。  
-- 当交付物是**图像**（构图、流程、品牌板）时，使用 **imagegen-frontend-web**、**imagegen-frontend-mobile** 或 **brandkit**，然后将结果交给你的编码代理。
+- 要做新的公开页面：**taste-skill**。
+- 要改一个已经存在的页面：**redesign-skill**。
+- 视觉方向已经定了：**soft-skill**、**minimalist-skill** 或 **brutalist-skill**。
+- 想先要图、再要代码：用某个图像生成技能，或者用 **image-to-code-skill** 一条链路走完。
+- 代理总是把输出砍短：加上 **output-skill**。
 
-### 图像优先小贴士
+<details>
+<summary>taste-skill 的旧版本</summary>
 
-对于 **image-to-code-skill**，请在提示词中明确流程，例如：`遵循该技能：先生成图像，再分析，再写代码`。
+为依赖它们确切行为的项目保留。
 
-### ChatGPT Images 与 Codex
+| 技能 | 安装名 | 说明 |
+| --- | --- | --- |
+| **[taste-skill-v2-experimental](https://github.com/Leonxlnx/taste-skill/blob/main/skills/taste-skill-v2-experimental/SKILL.md)** | `design-taste-frontend-v2-experimental` | 单文件、三旋钮驱动的重写版，是 v2 成为默认之前的默认技能。 |
+| **[taste-skill-v1](https://github.com/Leonxlnx/taste-skill/blob/main/skills/taste-skill-v1/SKILL.md)** | `design-taste-frontend-v1` | 最初的版本。 |
 
-附加或粘贴 **`imagegen-frontend-web`**、**`imagegen-frontend-mobile`** 或 **`brandkit`**，并请求你需要的画面，然后将渲染结果交给 Codex、Cursor 或 Claude Code。若希望一个工作流同时生成参考图并实现网站代码，请使用 **image-to-code-skill**。
+```bash
+npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend-v2-experimental"
+npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend-v1"
+```
 
-## 设置（仅 taste-skill）
+这两个版本的文件顶部都有三个 1 到 10 的旋钮：**DESIGN_VARIANCE**（居中规整 → 非对称）、**MOTION_INTENSITY**（只有悬停 → 滚动驱动）、**VISUAL_DENSITY**（宽敞 → 密集）。v2 没有旋钮：它的方向来自抽牌，它的边界来自检查器。
 
-<a id="settings-taste-skill-only"></a>
-技能文件顶部的数字是 1-10 范围的三个旋钮：
+</details>
 
-- **DESIGN_VARIANCE**：布局实验性（低：居中/规整 · 高：非对称/现代）。
-- **MOTION_INTENSITY**：动效深度（低：悬停微动效 · 高：滚动联动/磁吸动效）。
-- **VISUAL_DENSITY**：每屏信息密度（低：宽敞通透 · 高：密集的仪表板风格）。
+## 常见问题
 
-## 示例
+**默认技能需要什么？**
+Node 22 或更高版本，以及 Chrome、Edge 或 Chromium。它不安装任何东西，也不用 API Key；只有找图片时需要联网。
 
-<a id="examples"></a>
-使用 taste-skill 制作：
+**图片从哪里来，我能用吗？**
+来自 Wikimedia Commons、Openverse、大都会艺术博物馆这类开放馆藏。技能只提供公共领域、CC0、CC BY 与 CC BY-SA 的文件，并把署名放在页面上。你有自己的照片时直接替换掉它们。
 
-<p>
-  <img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/examples/floria-top.webp" width="400" />
-  <img src="https://raw.githubusercontent.com/Leonxlnx/taste-skill/main/examples/floria-bottom.webp" width="400" />
-</p>
+**支持 React、Vue、Svelte、纯 HTML 吗？**
+支持。这些规则约束的是设计，不是某个框架。
+
+**它是给仪表盘和应用界面用的吗？**
+不是。默认技能面向对外的公开页面。产品界面请用 **minimalist-skill** 或 **soft-skill**。
+
+**跑一次要多久、贵不贵？**
+约 30 到 45 分钟、几十万 tokens。开销的大头在最后「回看」这一步：项目没有自己的照片时，找图与画图会占掉大部分时间。
 
 ## 支持本项目
 
-<a id="support-the-project"></a>
-如果 Taste Skill 对你有所帮助，欢迎赞助支持：
+如果 Taste Skill 对你有帮助，欢迎赞助：
 
 [在 GitHub 上赞助](https://github.com/sponsors/Leonxlnx)
 
-### 当前赞助者
+### 开源支持者
+
+<table align="center">
+  <tr>
+    <td align="center" width="104"><a href="https://www.kimi.com"><img src="public/images/sponsors/kimi-icon.png" alt="Kimi" width="52" height="52" /></a></td>
+    <td><a href="https://platform.kimi.ai?track_id=track-20f0d64bcaba419bb425a3e8c306f65d&amp;aff=taste-skill"><strong>获取 Kimi API Key</strong></a>：taste-skill 用户首次购买可额外获得 10% API 额度。</td>
+  </tr>
+  <tr>
+    <td align="center" width="104"><a href="https://vercel.com/open-source-program"><img src="public/images/sponsors/vercel-logo.svg" alt="Vercel" width="52" height="52" /></a></td>
+    <td><a href="https://vercel.com/open-source-program">Vercel Open Source Program 提供支持。</a></td>
+  </tr>
+</table>
+
+<details>
+<summary>社区赞助者</summary>
 
 <a href="https://github.com/dnakov"><img src="https://github.com/dnakov.png" width="40" height="40" style="border-radius:50%" alt="dnakov" title="dnakov" /></a>
 <a href="https://github.com/AkramReshad"><img src="https://github.com/AkramReshad.png" width="40" height="40" style="border-radius:50%" alt="AkramReshad" title="AkramReshad" /></a>
@@ -168,6 +256,17 @@ npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-fro
 <a href="https://github.com/AtharvaJaiswal005"><img src="https://github.com/AtharvaJaiswal005.png" width="40" height="40" style="border-radius:50%" alt="AtharvaJaiswal005" title="AtharvaJaiswal005" /></a>
 <a href="https://github.com/ghughes7"><img src="https://github.com/ghughes7.png" width="40" height="40" style="border-radius:50%" alt="ghughes7" title="ghughes7" /></a>
 <a href="https://github.com/mccun934"><img src="https://github.com/mccun934.png" width="40" height="40" style="border-radius:50%" alt="mccun934" title="mccun934" /></a>
+<a href="https://github.com/techmedic5"><img src="https://github.com/techmedic5.png" width="40" height="40" style="border-radius:50%" alt="techmedic5" title="techmedic5" /></a>
+<a href="https://github.com/bytewerk-dev"><img src="https://github.com/bytewerk-dev.png" width="40" height="40" style="border-radius:50%" alt="bytewerk-dev" title="bytewerk-dev" /></a>
+<a href="https://github.com/LuisGot"><img src="https://github.com/LuisGot.png" width="40" height="40" style="border-radius:50%" alt="LuisGot" title="LuisGot" /></a>
+<a href="https://github.com/oskar-collab"><img src="https://github.com/oskar-collab.png" width="40" height="40" style="border-radius:50%" alt="oskar-collab" title="oskar-collab" /></a>
+<a href="https://github.com/denvit"><img src="https://github.com/denvit.png" width="40" height="40" style="border-radius:50%" alt="denvit" title="denvit" /></a>
+<a href="https://github.com/onedollarstock"><img src="https://github.com/onedollarstock.png" width="40" height="40" style="border-radius:50%" alt="onedollarstock" title="onedollarstock" /></a>
+<a href="https://github.com/KANA-33"><img src="https://github.com/KANA-33.png" width="40" height="40" style="border-radius:50%" alt="KANA-33" title="KANA-33" /></a>
+<a href="https://github.com/emilkowalski"><img src="https://github.com/emilkowalski.png" width="40" height="40" style="border-radius:50%" alt="emilkowalski" title="emilkowalski" /></a>
+<a href="https://github.com/AnthonyLiuVa"><img src="https://github.com/AnthonyLiuVa.png" width="40" height="40" style="border-radius:50%" alt="AnthonyLiuVa" title="AnthonyLiuVa" /></a>
+<a href="https://github.com/Wolfy18"><img src="https://github.com/Wolfy18.png" width="40" height="40" style="border-radius:50%" alt="Wolfy18" title="Wolfy18" /></a>
+<a href="https://github.com/Gigslol"><img src="https://github.com/Gigslol.png" width="40" height="40" style="border-radius:50%" alt="Gigslol" title="Gigslol" /></a>
 
 <p align="center">
  <a href="https://www.star-history.com/leonxlnx/taste-skill">
@@ -179,27 +278,49 @@ npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-fro
  </a>
 </p>
 
+</details>
+
+<p align="center"><sub>反馈请开 Issue 或 PR，或私信 <a href="https://x.com/lexnlin">@lexnlin</a> / <a href="https://x.com/blueemi99">@blueemi99</a>，也可发邮件至 <a href="mailto:hello@tasteskill.dev">hello@tasteskill.dev</a>。</sub></p>
+
+<p align="center"><sub>Taste Skill 没有官方发行的代币、硬币或加密项目。任何使用作者姓名、形象或本项目名义的代币都与作者无关，也未获得认可。</sub></p>
+
 ## 研究
 
-<a id="research"></a>
-塑造这些技能的背景文章位于 [`research/`](https://github.com/Leonxlnx/taste-skill/tree/main/research)。
+塑造这些技能的背景研究位于 [`research/`](https://github.com/Leonxlnx/taste-skill/tree/main/research)，其中 [LLM 输出截断研究](https://github.com/Leonxlnx/taste-skill/tree/main/research/laziness) 解释了模型为什么会交半成品，以及如何补救。
 
-## 常见问题
+## 本站
 
-<a id="common-questions"></a>
-**这与其他 AI 设计技能有什么不同？**  
-多个专项变体、关键技能中可调节的旋钮，以及由专门研究支撑的反重复规则。所有规则在主流编码代理之间与框架无关。
+这个仓库除了中文版 README，还托管 **Taste Skill 中文站**：<https://taste.ndjp.net>
 
-**它支持 React、Vue、Svelte 吗？**  
-支持。规则针对的是设计意图，而非某个单一框架的 API。
+它是上游 [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) 的中文镜像站点，内容译自上游 README 与 CHANGELOG，并按照上游 v2 自己的「家规」重新设计了一遍（不出现标题上方的装饰标签、编号式段落、细线框、渐变与静止投影，正文不小于 13px，全页只有一个强调色）。
 
-**SKILL.md 是什么？**  
-一种可移植的指令文件，代理可自动加载；通过 `npx skills add` 安装，或直接复制到仓库或对话中。
+| 项 | 值 |
+| --- | --- |
+| 框架 | [Astro](https://astro.build) 7 |
+| 类型 | TypeScript 6.x |
+| 交互 | React 19（islands） |
+| 样式 | Tailwind CSS 4（CSS-first 配置） |
+| 动效 | Motion（`motion/react`） |
+| 字体 | Archivo Variable 自托管 + 系统中文栈（不依赖 Google Fonts） |
+| 包管理 | [Bun](https://bun.sh) |
+| 部署 | GitHub Actions → GitHub Pages（自定义域名 `taste.ndjp.net`） |
 
-**图像生成类技能也能用 `npx skills add` 安装吗？**  
-可以。它们与代码类技能一同放在 `skills/` 下，因此同一个 CLI 可以发现它们。
+站点一共 9 个路由：`/` 首页 · `/skills` 技能库 · `/install` 安装 · `/workflow` 工作原理 · `/examples` 示例 · `/changelog` 更新日志 · `/faq` 常见问题 · `/research` 研究 · `/404`。
+
+明暗两套主题各有一套设计令牌，切换走 `data-theme`，并在首帧之前定好以避免闪白。层叠方向在两个主题里保持一致（纸底 → 抬起/下沉块 → 墨带依次加深），所以语意色落在哪儿都够对比。正文、链接与按钮在 390 / 768 / 1440 三个宽度、两种主题下都按 WCAG 2.1 AA（正文 4.5:1、大字号 3:1）实测通过。
+
+### 本地开发
+
+```bash
+bun install      # 安装依赖
+bun run dev      # 本地开发服务器
+bun run build    # 构建到 dist/
+bun run preview  # 预览构建产物
+bun run check    # Astro + TypeScript 类型检查
+```
+
+站点目录：`src/pages/` 下每个文件对应一个路由，`src/data/` 是全部文案与结构化数据，`src/components/` 是组件（`*.tsx` 是需要水合的 React 岛）。
 
 ## 许可证
 
-<a id="license"></a>
-[MIT 许可证](https://github.com/Leonxlnx/taste-skill/blob/main/LICENSE) · 版权所有 (c) 2026 Leonxlnx
+[MIT 许可证](LICENSE) · 版权所有 (c) 2026 Leonxlnx

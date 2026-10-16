@@ -1,0 +1,34 @@
+# 依赖
+node_modules/
+.pnp
+.pnp.js
+
+# 构建产物
+dist/
+.output/
+.astro/
+
+# 环境变量
+.env
+.env.*
+!.env.example
+
+# 编辑器 / 系统
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# 日志
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+bun-debug.log*
+
+# Astro / Vite
+.vite/
+
+# 本地代理工作区（记忆、临时产物），不进仓库
+.workbuddy/

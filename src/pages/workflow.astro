@@ -1,0 +1,302 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import {
+  COST,
+  GATE_FAIL,
+  GATE_WARN,
+  IMAGE_CLI,
+  IMAGE_LICENSES,
+  IMAGE_SOURCES,
+  REQUIREMENTS,
+  STEPS,
+  TESTING,
+} from '../data/workflow';
+import { STUDY } from '../data/directions';
+---
+
+<Base
+  title="工作原理"
+  description="taste-skill v2 的工作方式：盘点、抽牌、立论、构建、过闸、回看六个步骤，以及真实浏览器检查器会直接判失败的完整条目清单。"
+>
+  <section class="mx-auto max-w-[1240px] px-5 pb-12 pt-12 lg:px-8 lg:pb-16 lg:pt-16">
+    <h1 class="t-h1 max-w-[22ch]" data-reveal>不是改了几行，是重新做了一遍</h1>
+    <p class="t-lead mt-6 max-w-[54ch]" data-reveal style="--reveal-delay:80ms">
+      v2 建立在 {STUDY.sites} 个精选站点（{STUDY.sources}）的研究之上。它不是一个单文件，而是一个文件夹：指令、九份参考文件、一个方向库，以及四个零依赖脚本。
+    </p>
+    <figure class="mt-12 m-0" data-reveal style="--reveal-delay:140ms">
+      <img
+        src="/images/examples/night-dates.webp"
+        alt="由 taste-skill 构建的夜场页面：青色背景上，档案照片做成网格，巨大的白色日期数字压在上面"
+        width="1200"
+        height="701"
+        class="w-full"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption class="t-meta mt-3.5">
+        一个需求，一次构建。照片来自开放档案，日期数字直接压在上面，配色和构图都来自抽到的那张牌。
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- 六个步骤 -->
+  <section class="band-deep">
+    <div class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-24">
+      <h2 class="t-h2 max-w-[20ch]" data-reveal>一次构建，六个步骤</h2>
+      <p class="t-lead mt-4" data-reveal style="--reveal-delay:80ms">
+        步骤一到五只要几分钟，却决定了这个页面到底好不好、够不够像被设计过。
+      </p>
+
+      <ol class="mt-14 list-none p-0">
+        {
+          STEPS.map((step, i) => (
+            <li
+              class:list={['relative', i === 0 ? 'pt-7' : 'pt-12']}
+              data-reveal
+              style={`--reveal-delay:${i * 60}ms`}
+            >
+              <span
+                aria-hidden="true"
+                class="absolute left-0 top-0 bg-ground px-2.5 py-1 text-[0.8125rem] font-semibold text-ink"
+                style={{ marginLeft: `clamp(0px, ${i * 5}vw, 5rem)` }}
+              >
+                {step.name}
+              </span>
+              <div class="grid gap-3 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-10">
+                <h3 class="text-[1.2rem] font-extrabold leading-snug tracking-tight">
+                  {step.title}
+                </h3>
+                <div>
+                  <p class="max-w-[64ch] text-[0.95rem] leading-relaxed text-ink-2">{step.body}</p>
+                  {step.tool && (
+                    <p class="mt-3 inline-block bg-ink-surface px-2.5 py-1 font-mono text-[0.75rem] text-accent">
+                      {step.tool}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- 检查器 -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-24">
+    <SectionHead
+      title="检查器会直接判失败的东西"
+      lead="inspect.mjs 在真实浏览器里以 1440 / 768 / 390 三个宽度打开页面，逐条测量。下面每一条，只要出现就直接判失败。"
+      measure={24}
+    />
+
+    <div class="mt-12 grid gap-x-14 gap-y-0 lg:grid-cols-2">
+      <ul class="list-none p-0">
+        {
+          GATE_FAIL.slice(0, Math.ceil(GATE_FAIL.length / 2)).map((rule, i) => (
+            <li
+              class="flex items-start gap-3.5 py-3.5"
+              data-reveal
+              style={`--reveal-delay:${i * 30}ms`}
+            >
+              <span
+                aria-hidden="true"
+                class="mt-[0.6em] block size-2.5 shrink-0 bg-signal"
+              />
+              <span class="text-[0.9375rem] leading-relaxed">{rule}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="list-none p-0">
+        {
+          GATE_FAIL.slice(Math.ceil(GATE_FAIL.length / 2)).map((rule, i) => (
+            <li
+              class="flex items-start gap-3.5 py-3.5"
+              data-reveal
+              style={`--reveal-delay:${i * 30}ms`}
+            >
+              <span aria-hidden="true" class="mt-[0.6em] block size-2.5 shrink-0 bg-signal" />
+              <span class="text-[0.9375rem] leading-relaxed">{rule}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="mt-12 bg-ground-2 p-6 lg:p-8" data-reveal>
+      <h3 class="text-[1.05rem] font-extrabold tracking-tight">给出警告、但不判失败</h3>
+      <ul class="mt-4 list-none space-y-2.5 p-0">
+        {
+          GATE_WARN.map((rule) => (
+            <li class="flex items-start gap-3.5">
+              <span aria-hidden="true" class="mt-[0.6em] block size-2.5 shrink-0 bg-ink/35" />
+              <span class="text-[0.9375rem] leading-relaxed text-ink-2">{rule}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 图片 -->
+  <section class="band band-ink">
+    <div class="mx-auto max-w-[1240px] px-5 lg:px-8">
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <div data-reveal>
+          <h2 class="t-h2 max-w-[18ch] text-on-ink">照片是真的，来源是开放的</h2>
+          <p class="mt-5 max-w-[46ch] text-[1.02rem] leading-relaxed opacity-75">
+            从前，拿不到照片的代理会把一切都画成 SVG。现在 assets.mjs 会去开放馆藏里找这个主题真实世界的图片：它的街道、它的材料、它那一行的老照片与博物馆藏品。不需要 API Key。
+          </p>
+          <p class="mt-6 max-w-[46ch] text-[0.95rem] leading-relaxed opacity-60">
+            找回来的每一张图都会打印出直链、来源页、尺寸、作者、许可和一行署名。找到的图不会冒充成客户自己的产品、房间、菜或团队，并且每一张都会署在页面上、列进报告。
+          </p>
+          <p class="mt-8 text-[0.8125rem] font-bold uppercase tracking-[0.12em] opacity-55">
+            允许的许可
+          </p>
+          <ul class="mt-3.5 flex list-none flex-wrap gap-2 p-0">
+            {
+              IMAGE_LICENSES.map((l) => (
+                <li class="bg-accent px-2.5 py-1 text-[0.8125rem] font-semibold text-accent-ink">
+                  {l}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="grid gap-10 sm:grid-cols-2" data-reveal style="--reveal-delay:100ms">
+          <div>
+            <h3 class="text-[0.8125rem] font-bold uppercase tracking-[0.12em] opacity-55">
+              检索的馆藏
+            </h3>
+            <ul class="mt-4 list-none p-0">
+              {
+                IMAGE_SOURCES.map((s) => (
+                  <li class="py-3">
+                    <p class="text-[1rem] font-extrabold tracking-tight">{s.name}</p>
+                    <p class="mt-1 text-[0.875rem] leading-relaxed opacity-70">{s.note}</p>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-[0.8125rem] font-bold uppercase tracking-[0.12em] opacity-55">
+              常用参数
+            </h3>
+            <ul class="mt-4 list-none p-0">
+              {
+                IMAGE_CLI.map((c) => (
+                  <li class="grid grid-cols-[minmax(0,6.5rem)_minmax(0,1fr)] gap-3 py-2.5">
+                    <span class="mono text-[0.8125rem] text-accent">{c.flag}</span>
+                    <span class="text-[0.875rem] leading-relaxed opacity-75">{c.note}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 动效要求 -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] lg:gap-14">
+      <div data-reveal>
+        <h2 class="t-h2 max-w-[20ch]">图片与动效，是要求而不是加分项</h2>
+        <p class="mt-5 max-w-[52ch] text-[1.02rem] leading-relaxed text-ink-2">
+          测试显示，没有外力推动时，代理会跳过图片和动效：早期 v2 建出的十个页面里没有任何真实图片，也几乎不动。所以检查器把两件事都变成了硬性要求。
+        </p>
+      </div>
+      <ul class="list-none p-0" data-reveal style="--reveal-delay:100ms">
+        {
+          [
+            {
+              t: '整页少于四张真实图片',
+              d: '直接失败。照片、档案图像、影像、位图作品都算；SVG 手绘不算。',
+            },
+            {
+              t: '会动的元素少于 8 个',
+              d: '失败；少于 16 个则警告。计数覆盖 CSS 动画、过渡、Web Animations 与脚本驱动的变换。',
+            },
+            {
+              t: '真实照片少于两张、或完全没有影像',
+              d: '警告，而不是失败。assets.mjs --video 可以找到开放许可的影像片段。',
+            },
+            {
+              t: '每个区块都用同一套淡入上移',
+              d: '仍然禁止。要求是：一处响亮的招牌动作，加上每个区块的分段入场。',
+            },
+          ].map((row, i) => (
+            <li class="py-4" style={`--reveal-delay:${140 + i * 50}ms`}>
+              <p class="text-[1.02rem] font-extrabold tracking-tight">{row.t}</p>
+              <p class="mt-1.5 max-w-[56ch] text-[0.9rem] leading-relaxed text-ink-2">{row.d}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 测试与成本 -->
+  <section class="band-deep">
+    <div class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+      <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div data-reveal>
+          <h2 class="t-h2 max-w-[18ch]">{TESTING.headline}</h2>
+          <p class="mt-5 max-w-[52ch] text-[0.95rem] leading-relaxed text-ink-2">
+            {TESTING.body}
+          </p>
+          <p class="mt-5 max-w-[52ch] text-[0.875rem] leading-relaxed text-ink-2">
+            {TESTING.limits}
+          </p>
+        </div>
+        <div data-reveal style="--reveal-delay:100ms">
+          <h2 class="t-h2 max-w-[18ch]">跑一次要花多少</h2>
+          <dl class="mt-6 list-none p-0">
+            {
+              COST.map((c) => (
+                <div class="py-3.5">
+                  <dt class="text-[0.8125rem] font-bold uppercase tracking-[0.12em] text-ink-2">
+                    {c.label}
+                  </dt>
+                  <dd class="m-0 mt-1 text-[1.15rem] font-extrabold tracking-tight">{c.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <p class="mt-6 max-w-[48ch] text-[0.875rem] leading-relaxed text-ink-2">
+            换句话说：贵不在排版，在找图与画图。项目自带照片时，成本会显著下降。
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-14 grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]" data-reveal>
+        <h3 class="text-[1.1rem] font-extrabold tracking-tight">
+          回顾一下前置条件
+        </h3>
+        <ul class="list-none p-0">
+          {
+            REQUIREMENTS.map((r) => (
+              <li class="grid grid-cols-[minmax(0,6rem)_minmax(0,8rem)_minmax(0,1fr)] gap-4 py-3">
+                <span class="text-[0.8125rem] font-bold uppercase tracking-[0.1em] text-ink-2">
+                  {r.label}
+                </span>
+                <span class="text-[0.9375rem] font-extrabold tracking-tight">{r.value}</span>
+                <span class="text-[0.875rem] leading-relaxed text-ink-2">{r.note}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="mt-12 flex flex-wrap gap-3">
+        <a href="/install" class="btn btn-ink">去安装 <span aria-hidden="true">→</span></a>
+        <a href="/research" class="btn btn-line">看背后的研究</a>
+      </div>
+    </div>
+  </section>
+</Base>

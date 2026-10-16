@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  lead?: string;
+  id?: string;
+  /** 标题最大宽度（ch），用于控制断行 */
+  measure?: number;
+  class?: string;
+}
+
+const { title, lead, id, measure = 22, class: className = '' } = Astro.props;
+---
+
+<header id={id} class={className}>
+  <h2 class="t-h2" style={`max-width:${measure}ch`}>{title}</h2>
+  {lead && <p class="t-lead mt-4">{lead}</p>}
+</header>

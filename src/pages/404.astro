@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import { NAV } from '../data/site';
+---
+
+<Base title="页面不存在" description="这个地址上没有页面。">
+  <section class="mx-auto max-w-[1240px] px-5 py-20 lg:px-8 lg:py-28">
+    <p class="text-[clamp(4rem,14vw,10rem)] font-extrabold leading-[0.85] tracking-[-0.05em]">
+      404
+    </p>
+    <h1 class="t-h2 mt-6 max-w-[24ch]">这个地址上没有页面</h1>
+    <p class="t-lead mt-5 max-w-[52ch]">
+      可能是链接抄错了，也可能是这一页已经被挪走。下面这些是站上现有的页面。
+    </p>
+
+    <ul class="mt-12 grid max-w-[42rem] list-none gap-0 p-0">
+      {
+        NAV.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="group flex items-baseline justify-between gap-6 py-4"
+            >
+              <span class="text-[1.15rem] font-extrabold tracking-tight">
+                {item.label}
+              </span>
+              <span class="t-meta text-right">{item.hint}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-12 flex flex-wrap gap-3">
+      <a href="/" class="btn btn-ink">回到首页 <span aria-hidden="true">→</span></a>
+      <a href="/install" class="btn btn-line">安装</a>
+    </div>
+  </section>
+</Base>

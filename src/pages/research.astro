@@ -1,0 +1,177 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { LINKS } from '../data/site';
+import { STUDY } from '../data/directions';
+
+const laziness = [
+  {
+    group: '根因',
+    items: [
+      { t: 'RLHF 与算力经济', d: '强化学习与成本优化如何制造出系统性的「简短偏好」。' },
+      { t: '训练数据偏置', d: '人类代码里的占位模式如何被模型学了回去。' },
+      { t: '认知捷径', d: '面对复杂或冗长任务时，模型如何走捷径的实证证据。' },
+      { t: '输出上限', d: '上下文窗口的不对称，以及消费级产品的截断机制。' },
+    ],
+  },
+  {
+    group: '补救',
+    items: [
+      { t: '参数调优', d: 'temperature、top-p，以及 Gemini 的 thinking level 配置。' },
+      { t: '提示词工程', d: '结构化提示技巧：语法绑定、XML 框架、校验回路。' },
+      { t: '架构模式', d: 'MCP 集成、惰性加载的技能，以及开发者平台的访问权限。' },
+      { t: '参考提示词', d: '可以直接拿来用的提示词模板，用来强制完整输出。' },
+    ],
+  },
+  {
+    group: '结论',
+    items: [
+      { t: '实证结果', d: '2025 年学术研究中的受控实验数据。' },
+      { t: '参考文献', d: '被引用的研究与延伸阅读。' },
+    ],
+  },
+];
+
+const designStudy = [
+  {
+    t: `${STUDY.sites} 个精选站点`,
+    d: `来自 ${STUDY.sources}。每一个方向、每一种构图、每一套字体与配色，都标明了它在哪些真实站点上出现过。`,
+  },
+  {
+    t: '家规与失败清单',
+    d: '把「看起来像 AI 做的」拆成可测量的条目：装饰性小标签、等宽字体标签、01/02/03 编号、细线框、渐变、静止投影、超过两行的标题。',
+  },
+  {
+    t: '盲评记录',
+    d: '五轮盲评、六个需求的完整实验记录，包括它输掉的那一轮，以及方法上的局限说明。',
+  },
+  {
+    t: '方向库',
+    d: '20 个方向、48 种首屏构图、172 种分区构图、44 套免费字体系统、56 套配色、420 张照片、11 种动效、181 个研究过的站点。',
+  },
+];
+---
+
+<Base
+  title="研究"
+  description="支撑 Taste Skill 的两条研究线：LLM 输出截断（为什么模型交半成品，以及如何补救），以及 247 个精选站点的设计研究。"
+>
+  <section class="mx-auto max-w-[1240px] px-5 pb-12 pt-12 lg:px-8 lg:pb-16 lg:pt-16">
+    <h1 class="t-h1 max-w-[20ch]" data-reveal>这些结论不是拍脑袋来的</h1>
+    <p class="t-lead mt-6 max-w-[58ch]" data-reveal style="--reveal-delay:80ms">
+      技能里的每一条规则，背后要么是受控实验，要么是站得住的站点统计。两条研究线分别是「模型为什么交半成品」和「好站点到底好在哪」。
+    </p>
+  </section>
+
+  <!-- 设计研究 -->
+  <section class="band band-fill">
+    <div class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+      <SectionHead
+        title="好站点好在哪：一项对 247 个站点的研究"
+        lead="v2 的全部规则都出自这项研究。它的核心发现是：让人记住的站点，都有一个从「这件事本身」里长出来的概念，而不只是把样式做漂亮。"
+        measure={26}
+      />
+      <div class="mt-11 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+        {
+          designStudy.map((row, i) => (
+            <div data-reveal style={`--reveal-delay:${i * 60}ms`}>
+              <h3 class="text-[1.1rem] font-extrabold tracking-tight">{row.t}</h3>
+              <p class="mt-2.5 max-w-[52ch] text-[0.9375rem] leading-relaxed opacity-80">{row.d}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-11" data-reveal>
+        <a
+          href={`${LINKS.upstreamRepo}/blob/main/skills/taste-skill/references/research.md`}
+          class="inline-flex items-center gap-2 font-semibold underline decoration-[1.5px] underline-offset-4"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          读完整研究记录 <span aria-hidden="true">↗</span>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- LLM 懒惰研究 -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-24">
+    <SectionHead
+      title="模型为什么交半成品，以及怎么治"
+      lead="output-skill 这一类技能不是靠「请完整输出」这种请求做出来的，而是基于一份结构化的分析：把截断拆成根因、补救和实证结论三部分。"
+      measure={28}
+    />
+
+    <div class="mt-12 grid gap-x-12 gap-y-12 lg:grid-cols-3">
+      {
+        laziness.map((section, si) => (
+          <div data-reveal style={`--reveal-delay:${si * 80}ms`}>
+            <h3 class="bg-ink-surface px-3 py-1.5 text-[0.8125rem] font-bold uppercase tracking-[0.12em] text-accent">
+              {section.group}
+            </h3>
+            <ul class="mt-5 list-none p-0">
+              {section.items.map((item) => (
+                <li class="py-3.5">
+                  <p class="text-[1.02rem] font-extrabold tracking-tight">{item.t}</p>
+                  <p class="mt-1.5 text-[0.9rem] leading-relaxed text-ink-2">{item.d}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-12 max-w-[70ch] text-[0.9rem] leading-relaxed text-ink-2" data-reveal>
+      这份研究在仓库的
+      <a
+        href={`${LINKS.upstreamRepo}/tree/main/research/laziness`}
+        class="link"
+        target="_blank"
+        rel="noopener noreferrer">research/laziness/</a
+      >
+      下，每个主题一个文件。所有结论都来自受控实验、已发表研究和实战验证过的工程做法。
+    </p>
+  </section>
+
+  <!-- 研究目录 -->
+  <section class="band-deep">
+    <div class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
+        <div data-reveal>
+          <h2 class="t-h2 max-w-[18ch]">仓库里的研究目录</h2>
+          <p class="mt-5 max-w-[46ch] text-[1.02rem] leading-relaxed text-ink-2">
+            研究内容与技能放在同一个仓库里，方便你和代理一起读。每个主题一个子目录。
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={LINKS.upstreamResearch}
+              class="btn btn-ink"
+              target="_blank"
+              rel="noopener noreferrer">浏览 research/ <span aria-hidden="true">↗</span></a
+            >
+            <a href="/workflow" class="btn btn-line">工作原理</a>
+          </div>
+        </div>
+
+        <ul class="list-none p-0" data-reveal style="--reveal-delay:100ms">
+          {
+            [
+              { f: 'research/README.md', d: '研究总览与主题索引' },
+              { f: 'research/laziness/root-causes/', d: '4 份根因分析' },
+              { f: 'research/laziness/remediation/', d: '4 份补救方案' },
+              { f: 'research/laziness/findings/', d: '2 份实证结果与参考文献' },
+              { f: 'skills/taste-skill/references/', d: '9 份参考文件，含套路清单与研究正文' },
+              { f: 'skills/taste-skill/library/', d: '8 个方向库文件' },
+            ].map((row) => (
+              <li class="grid grid-cols-[minmax(0,1fr)] gap-1 py-3.5 sm:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] sm:gap-6">
+                <span class="mono text-[0.8125rem] text-ink">{row.f}</span>
+                <span class="text-[0.9rem] leading-relaxed text-ink-2">{row.d}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,58 @@
+name: 部署到 GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# 只允许一个部署同时进行；不要打断正在进行的发布
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: 构建
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v7.0.1
+
+      - name: 安装 Bun
+        uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: 1.4.3
+
+      - name: 安装依赖
+        run: bun install --frozen-lockfile
+
+      - name: 类型检查
+        run: bun run check
+
+      - name: 构建站点
+        run: bun run build
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v6.0.0
+
+      - name: 上传构建产物
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: dist
+
+  deploy:
+    name: 发布
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 发布到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5.0.1

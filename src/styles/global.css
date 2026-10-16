@@ -1,0 +1,431 @@
+@import 'tailwindcss';
+
+/* 主题切换走 data-theme，而不是系统的 prefers-color-scheme。
+   Tailwind v4 用 @custom-variant 注册一个 dark 变体。 */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* ─────────────────────────────────────────────────────────────
+   设计令牌
+   方向：印刷档案 / 全色块 + 大字号 + 真实图片
+   —— 刻意避开上游 v2 明令禁止的紫色系与「奶油 + 赤陶」组合。
+   结构块一律直角，只有交互控件保留一个极小的圆角。
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --ts-ground: #eceae2;
+  --ts-ground-2: #dedbcd;
+  --ts-ink: #121211;
+  --ts-ink-2: #5b5951;
+  --ts-ink-3: #69665c;
+
+  /* 「墨面」是声明带、页脚与深色块的底色。
+     它必须独立于 --ts-ink：ink 是正文颜色，会随主题翻转；
+     墨面则两个主题下都保持深色，这样强调色（酸性绿）永远落在深底上。
+     两个主题的层次方向一致：ground → ground-2 → ink-surface 依次更深。 */
+  --ts-ink-surface: #121211;
+  --ts-on-ink: #eceae2;
+  --ts-rule-on-ink: rgba(236, 234, 226, 0.26);
+
+  --ts-accent: #c9f74f;
+  --ts-accent-ink: #14140f;
+  /* signal 是语义色，只在「判失败 / 警告」这类标记上用，不参与装饰 */
+  --ts-signal: #c2341b;
+  --ts-rule: rgba(18, 18, 17, 0.16);
+  --ts-radius-ctl: 3px;
+}
+
+[data-theme='dark'] {
+  --ts-ground: #1c1c20;
+  --ts-ground-2: #131316;
+  --ts-ink: #f4f2ea;
+  --ts-ink-2: #a8a59c;
+  --ts-ink-3: #8f8b80;
+
+  --ts-ink-surface: #08080a;
+  --ts-on-ink: #f4f2ea;
+  --ts-rule-on-ink: rgba(244, 242, 234, 0.22);
+
+  --ts-accent: #c9f74f;
+  --ts-accent-ink: #0b0b0c;
+  --ts-signal: #ff6a4d;
+  --ts-rule: rgba(244, 242, 234, 0.18);
+}
+
+@theme inline {
+  --color-ground: var(--ts-ground);
+  --color-ground-2: var(--ts-ground-2);
+  --color-ink: var(--ts-ink);
+  --color-ink-2: var(--ts-ink-2);
+  --color-ink-3: var(--ts-ink-3);
+  --color-ink-surface: var(--ts-ink-surface);
+  --color-on-ink: var(--ts-on-ink);
+  --color-accent: var(--ts-accent);
+  --color-accent-ink: var(--ts-accent-ink);
+  --color-signal: var(--ts-signal);
+  --color-rule: var(--ts-rule);
+
+  --font-sans:
+    'Archivo Variable', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC',
+    system-ui, sans-serif;
+  --font-display:
+    'Archivo Variable', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC',
+    system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --radius-ctl: var(--ts-radius-ctl);
+}
+
+/* ── 基础 ─────────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--ts-ground);
+    color: var(--ts-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--ts-accent);
+    color: var(--ts-accent-ink);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* 焦点环跟随当前文字色，因此在任何色块上都可见 */
+  :focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ── 版式 ─────────────────────────────────────────────────── */
+@layer components {
+  /* 汉字宽度等于字号，所以超大标题按视口宽度的百分比取值，
+     再用一个上限夹住，保证在任何宽度下都不会多出一行。 */
+  .t-display {
+    font-size: clamp(2.3rem, 10.4vw, 8.75rem);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+  }
+
+  .t-h1 {
+    font-size: clamp(2.1rem, 5.2vw, 3.9rem);
+    line-height: 1;
+  }
+
+  .t-h2 {
+    font-size: clamp(1.65rem, 3.5vw, 2.7rem);
+    line-height: 1.04;
+  }
+
+  .t-h3 {
+    font-size: clamp(1.15rem, 2vw, 1.6rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .t-lead {
+    font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+    line-height: 1.55;
+    color: var(--ts-ink-2);
+    max-width: 46ch;
+  }
+
+  .t-meta {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    color: var(--ts-ink-2);
+  }
+
+  /* 结构块直角 */
+  .field {
+    border-radius: 0;
+  }
+
+  /* 色块带 */
+  .band {
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+  }
+  .band-fill {
+    background: var(--ts-accent);
+    color: var(--ts-accent-ink);
+  }
+  .band-ink {
+    background: var(--ts-ink-surface);
+    color: var(--ts-on-ink);
+  }
+  .band-deep {
+    background: var(--ts-ground-2);
+  }
+
+  /* t-lead / t-meta 的灰是「纸底上的灰」。放进有底色的带子里就失去对比，
+     所以在带子内改用该带子自己的文字色降一档。 */
+  .band-ink .t-lead {
+    color: color-mix(in srgb, var(--ts-on-ink) 78%, transparent);
+  }
+  .band-ink .t-meta {
+    color: color-mix(in srgb, var(--ts-on-ink) 68%, transparent);
+  }
+  .band-fill .t-lead {
+    color: color-mix(in srgb, var(--ts-accent-ink) 80%, transparent);
+  }
+  .band-fill .t-meta {
+    color: color-mix(in srgb, var(--ts-accent-ink) 68%, transparent);
+  }
+
+  /* v2 惯用的「阶梯标签」：色块带边缘的小标签，取代 eyebrow */
+  .tab-label {
+    display: inline-block;
+    padding: 0.4rem 0.9rem 0.45rem;
+    background: var(--ts-ground);
+    color: var(--ts-ink);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    line-height: 1.3;
+  }
+  .band-fill .tab-label,
+  .band-ink .tab-label {
+    background: var(--ts-accent);
+    color: var(--ts-accent-ink);
+  }
+
+  /* 控件 */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.72rem 1.35rem;
+    border: 0;
+    border-radius: var(--ts-radius-ctl);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    transition:
+      transform 0.18s ease,
+      background-color 0.18s ease,
+      color 0.18s ease;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-ink {
+    background: var(--ts-ink);
+    color: var(--ts-ground);
+  }
+  .btn-ink:hover {
+    background: var(--ts-accent);
+    color: var(--ts-accent-ink);
+  }
+  .btn-accent {
+    background: var(--ts-accent);
+    color: var(--ts-accent-ink);
+  }
+  .btn-accent:hover {
+    background: var(--ts-ink);
+    color: var(--ts-accent);
+  }
+  .btn-line {
+    background: transparent;
+    color: var(--ts-ink);
+    box-shadow: inset 0 0 0 1.5px var(--ts-rule);
+  }
+  .btn-line:hover {
+    box-shadow: inset 0 0 0 1.5px var(--ts-ink);
+  }
+  .band-ink .btn-line {
+    color: var(--ts-on-ink);
+    box-shadow: inset 0 0 0 1.5px var(--ts-rule-on-ink);
+  }
+  .band-ink .btn-line:hover {
+    box-shadow: inset 0 0 0 1.5px var(--ts-accent);
+    color: var(--ts-accent);
+  }
+  /* 强调色带上的描边按钮：文字必须跟着带子的文字色，
+     否则暗色主题下会变成浅色字压在酸性绿上。 */
+  .band-fill .btn-line {
+    color: var(--ts-accent-ink);
+    box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ts-accent-ink) 42%, transparent);
+  }
+  .band-fill .btn-line:hover {
+    box-shadow: inset 0 0 0 1.5px var(--ts-accent-ink);
+  }
+
+  /* 文本链接：靠下划线而不是第二种颜色建立层级 */
+  .link {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    transition:
+      color 0.18s ease,
+      background-color 0.18s ease;
+  }
+  .link:hover {
+    background: var(--ts-accent);
+    color: var(--ts-accent-ink);
+  }
+
+  /* 行内代码 */
+  .mono {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+  }
+  .band-ink .link,
+  .band-fill .link {
+    color: inherit;
+    text-decoration-color: currentColor;
+  }
+}
+
+/* ── 代码块（Shiki + 手写的命令块） ─────────────────────────── */
+@layer components {
+  .cmd {
+    position: relative;
+    margin: 0;
+    background: var(--ts-ink);
+    color: var(--ts-accent);
+    border-radius: var(--ts-radius-ctl);
+    padding: 1rem 4.4rem 1rem 1.15rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    tab-size: 2;
+  }
+  [data-theme='dark'] .cmd {
+    background: var(--ts-ground-2);
+    color: var(--ts-accent);
+  }
+
+  .prose-ts :where(p, ul, ol) {
+    color: var(--ts-ink-2);
+  }
+  .prose-ts :where(ul) {
+    margin: 0.75rem 0 0;
+    padding-left: 1.15rem;
+    list-style: none;
+  }
+  .prose-ts :where(ul) > li {
+    position: relative;
+    padding-left: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+  .prose-ts :where(ul) > li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    background: var(--ts-accent);
+  }
+}
+
+/* ── 入场编排（只动 transform / opacity） ──────────────────── */
+@layer utilities {
+  /* 没有 JS 时不隐藏内容 */
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  .js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal],
+    .js [data-reveal].is-in {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* 唯一的一处「会动的图」：一张缓慢呼吸的照片 */
+  @keyframes ts-breathe {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.06);
+    }
+  }
+  .breathe {
+    animation: ts-breathe 16s ease-in-out infinite alternate;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .breathe {
+      animation: none;
+    }
+  }
+
+  .grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  }
+}

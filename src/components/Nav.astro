@@ -1,0 +1,56 @@
+---
+import ThemeToggle from './ThemeToggle.tsx';
+import MobileNav from './MobileNav.tsx';
+import { NAV, LINKS, SITE } from '../data/site';
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
+---
+
+<header
+  class="sticky top-0 z-40"
+  style="background:color-mix(in srgb, var(--ts-ground) 84%, transparent); backdrop-filter:blur(14px) saturate(1.5); -webkit-backdrop-filter:blur(14px) saturate(1.5);"
+>
+  <nav class="mx-auto flex h-[68px] max-w-[1240px] items-center gap-4 px-5 lg:px-8" aria-label="主导航">
+    <a href="/" class="flex shrink-0 items-center gap-2.5" aria-label={`${SITE.shortName} 中文站首页`}>
+      <img src="/images/logo.webp" alt="" width="28" height="28" class="size-7" />
+      <span class="text-[0.95rem] font-extrabold leading-none tracking-tight">Taste Skill</span>
+      <span class="t-meta hidden font-semibold text-ink-3 sm:inline">中文站</span>
+    </a>
+
+    <ul class="mx-auto hidden list-none items-center gap-1 p-0 lg:flex">
+      {
+        NAV.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+              class:list={[
+                'block rounded-ctl px-3 py-2 text-[0.9rem] font-semibold tracking-tight transition-colors',
+                isActive(item.href)
+                  ? 'bg-ink-surface text-on-ink'
+                  : 'text-ink-2 hover:bg-ink/8 hover:text-ink',
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="ml-auto flex items-center gap-1.5 lg:ml-0">
+      <a
+        href={LINKS.upstreamRepo}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-ink hidden lg:inline-flex"
+      >
+        GitHub
+        <span aria-hidden="true">↗</span>
+      </a>
+      <ThemeToggle client:load />
+      <MobileNav client:load items={NAV} github={LINKS.upstreamRepo} />
+    </div>
+  </nav>
+</header>

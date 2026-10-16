@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import FaqBands from '../components/FaqBands.tsx';
+import { LINKS } from '../data/site';
+---
+
+<Base
+  title="常见问题"
+  description="Taste Skill 常见问题：前置条件、图片从哪来能不能用、支持哪些框架、能不能做仪表盘、与别的设计技能的区别、升级与回退、成本与代币声明。"
+>
+  <section class="mx-auto max-w-[1240px] px-5 pb-12 pt-12 lg:px-8 lg:pb-16 lg:pt-16">
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end lg:gap-14">
+      <h1 class="t-h1 max-w-[14ch]" data-reveal>常见问题</h1>
+      <p class="t-meta m-0" data-reveal style="--reveal-delay:100ms">
+        没找到答案？去
+        <a href={LINKS.upstreamIssues} class="link" target="_blank" rel="noopener noreferrer"
+          >提一个 Issue</a
+        >，或发邮件到
+        <a href={LINKS.email} class="link">hello@tasteskill.dev</a>。
+      </p>
+    </div>
+  </section>
+
+  <div class="pt-2">
+    <FaqBands client:visible />
+  </div>
+
+  <section class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)] lg:gap-14">
+      <h2 class="t-h2 max-w-[22ch]" data-reveal>还想再确认一件事？</h2>
+      <div data-reveal style="--reveal-delay:100ms">
+        <p class="max-w-[56ch] text-[1.02rem] leading-relaxed text-ink-2">
+          去「工作原理」那一页，检查器会判失败的每一条都列在那儿。或者直接看示例，判断它做出来的东西是不是你想要的。
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/workflow" class="btn btn-ink">工作原理 <span aria-hidden="true">→</span></a>
+          <a href="/examples" class="btn btn-line">看示例</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

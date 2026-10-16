@@ -1,0 +1,34 @@
+---
+import CopyButton from './CopyButton.tsx';
+
+interface Props {
+  code: string;
+  /** 代码块左上角的小标题，例如 install.sh */
+  fileLabel?: string;
+  /** 一句话说明，显示在代码块上方 */
+  note?: string;
+  class?: string;
+}
+
+const { code, fileLabel, note, class: className = '' } = Astro.props;
+const text = code.trim();
+---
+
+<div class={className}>
+  {
+    (note || fileLabel) && (
+      <div class="mb-2 flex items-baseline justify-between gap-4">
+        {note && <p class="t-meta max-w-[62ch]">{note}</p>}
+        {fileLabel && (
+          <span class="shrink-0 font-mono text-[0.6875rem] tracking-[0.06em] text-ink-2">
+            {fileLabel}
+          </span>
+        )}
+      </div>
+    )
+  }
+  <div class="relative">
+    <pre class="cmd"><code>{text}</code></pre>
+    <CopyButton client:visible value={text} />
+  </div>
+</div>

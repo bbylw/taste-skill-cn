@@ -1,0 +1,195 @@
+---
+import Base from '../layouts/Base.astro';
+import SkillCard from '../components/SkillCard.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import SectionHead from '../components/SectionHead.astro';
+import {
+  CHOOSER,
+  DEFAULT_SKILL,
+  DIALS,
+  IMAGE_SKILLS,
+  LEGACY_SKILLS,
+  TASK_SKILLS,
+} from '../data/skills';
+import { LINKS } from '../data/site';
+
+const total = 1 + TASK_SKILLS.length + IMAGE_SKILLS.length + LEGACY_SKILLS.length;
+---
+
+<Base
+  title="技能库"
+  description="Taste Skill 的全部技能：默认技能 taste-skill（v2）、8 个专项技能、3 个图像生成技能，以及两个保留的历史版本，附安装名与适用场景。"
+>
+  <section class="mx-auto max-w-[1240px] px-5 pb-12 pt-12 lg:px-8 lg:pb-16 lg:pt-16">
+    <h1 class="t-h1 max-w-[20ch]" data-reveal>技能库</h1>
+    <p class="t-lead mt-6" data-reveal style="--reveal-delay:80ms">
+      一共 {total} 个技能，每个只做一件事。你不必全都装。下表里的<strong class="font-semibold text-ink">安装名</strong>，就是传给 <code class="mono">--skill</code> 的那个值。
+    </p>
+    <div class="mt-10 grid gap-7 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+      <div data-reveal style="--reveal-delay:120ms">
+        <CodeBlock
+          code="npx skills add https://github.com/Leonxlnx/taste-skill --skill &quot;design-taste-frontend&quot;"
+          fileLabel="install.sh"
+          note="安装名取自 SKILL.md frontmatter 的 name 字段，不是文件夹名。"
+        />
+      </div>
+      <div data-reveal style="--reveal-delay:180ms">
+        <p class="t-meta m-0">
+          技能文件顶部的 <code class="mono">name:</code> 是安装名；仓库里的目录名可能不同，比如目录
+          <code class="mono">redesign-skill</code> 的安装名是
+          <code class="mono">redesign-existing-projects</code>。用
+          <a href={LINKS.upstreamInstallScript} class="link" target="_blank" rel="noopener noreferrer"
+            >install.sh --list</a
+          > 可以把两者对照列出来。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 默认技能 -->
+  <section class="band-deep">
+    <div class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
+        <div data-reveal>
+          <p class="text-[0.8125rem] font-bold uppercase tracking-[0.12em] text-ink-2">
+            默认技能 · {DEFAULT_SKILL.installName}
+          </p>
+          <h2 class="t-h2 mt-4">taste-skill v2</h2>
+          <p class="mt-5 text-[1.02rem] leading-relaxed text-ink-2">{DEFAULT_SKILL.summary}</p>
+          <p class="mono mt-6 text-[0.8125rem] text-ink-2">skills/{DEFAULT_SKILL.folder}/</p>
+        </div>
+
+        <div data-reveal style="--reveal-delay:100ms">
+          <p class="text-[0.8125rem] font-bold uppercase tracking-[0.12em] text-ink-2">
+            装进项目里之后，它是这些东西
+          </p>
+          <ul class="mt-5 list-none p-0">
+            {
+              [
+                { k: 'SKILL.md', v: '主指令：四件事、六个步骤、家规与边界' },
+                { k: 'references/ ×9', v: '配色、文案、评审、图像、版式、动效、研究、套路清单、字体' },
+                { k: 'library/ ×8', v: '20 方向 · 48 首屏 · 172 分区 · 44 字体系统 · 56 配色 · 420 照片 · 11 动效 · 181 站点' },
+                { k: 'scripts/ ×4', v: 'draw.mjs 抽牌 · assets.mjs 找图 · lint.mjs 扫源码 · inspect.mjs 真实浏览器检查' },
+                { k: 'assets/', v: 'base.css 与 base.js，构建的起点' },
+                { k: 'evals/', v: '自带的评测用例' },
+              ].map((row) => (
+                <li class="grid grid-cols-[minmax(0,10rem)_minmax(0,1fr)] gap-4 py-3">
+                  <span class="mono text-[0.8125rem] font-medium text-ink">{row.k}</span>
+                  <span class="text-[0.9rem] leading-relaxed text-ink-2">{row.v}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 选型指引 -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+    <SectionHead title="我该用哪个？" measure={18} />
+    <dl class="mt-10 list-none p-0">
+      {
+        CHOOSER.map((row, i) => (
+          <div
+            class="grid grid-cols-1 gap-1 py-5 sm:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] sm:gap-8"
+            data-reveal
+            style={`--reveal-delay:${i * 40}ms`}
+          >
+            <dt class="text-[1.05rem] font-extrabold tracking-tight">{row.question}</dt>
+            <dd class="mono m-0 text-[0.9375rem] text-ink-2">{row.answer}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <!-- 专项技能 -->
+  <section class="band-deep">
+    <div class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+      <SectionHead
+        title="针对特定任务的技能"
+        lead="这八个技能各自解决一类具体问题。视觉方向已经确定时，从 soft / minimalist / brutalist 里叠一个上去。"
+      />
+      <div class="mt-11 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        {
+          TASK_SKILLS.map((skill) => (
+            <div data-reveal>
+              <SkillCard skill={skill} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 图像生成技能 -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+    <SectionHead
+      title="图像生成类技能"
+      lead="这三个只产出设计图，不写代码。配合 ChatGPT Images、Codex 图像模式，或任何能生图的代理使用，然后把画面交给你的编码代理。"
+    />
+    <div class="mt-11 grid gap-3 md:grid-cols-3">
+      {
+        IMAGE_SKILLS.map((skill, i) => (
+          <div data-reveal style={`--reveal-delay:${i * 60}ms`}>
+            <SkillCard skill={skill} tone="accent" />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 历史版本 -->
+  <section class="band band-ink">
+    <div class="mx-auto max-w-[1240px] px-5 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
+        <div data-reveal>
+          <h2 class="t-h2 max-w-[18ch] text-on-ink">旧版本仍然装得到</h2>
+          <p class="mt-5 max-w-[50ch] text-[1.02rem] leading-relaxed opacity-75">
+            为依赖它们确切行为的项目保留。安装名没有变过，升级只需重跑一遍安装命令，新版本会原地覆盖旧版本。
+          </p>
+          <p class="mt-8 text-[0.8125rem] font-bold uppercase tracking-[0.12em] opacity-55">
+            v1 与 v2-experimental 共有的三个旋钮
+          </p>
+          <dl class="mt-4 list-none p-0">
+            {
+              DIALS.map((d) => (
+                <div class="py-3.5">
+                  <dt class="mono text-[0.875rem] font-medium text-accent">{d.name}</dt>
+                  <dd class="m-0 mt-1 text-[0.9rem] opacity-75">
+                    {d.low} <span aria-hidden="true">→</span> {d.high}
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+          <p class="mt-6 max-w-[50ch] text-[0.875rem] leading-relaxed opacity-60">
+            v2 没有旋钮。它的方向来自抽牌，它的边界来自检查器。
+          </p>
+        </div>
+
+        <div class="grid gap-3 sm:grid-cols-2" data-reveal style="--reveal-delay:100ms">
+          {
+            LEGACY_SKILLS.map((skill) => (
+              <SkillCard skill={skill} tone="ink" />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+      <SectionHead
+        title="装完之后，它按什么规矩做事"
+        lead="这些规矩不是口号，而是会被一个真实浏览器逐条量出来的。去看工作原理那一页，里面有完整的失败清单。"
+      />
+      <div class="flex items-end gap-3" data-reveal style="--reveal-delay:100ms">
+        <a href="/workflow" class="btn btn-ink">工作原理 <span aria-hidden="true">→</span></a>
+        <a href="/install" class="btn btn-line">安装</a>
+      </div>
+    </div>
+  </section>
+</Base>

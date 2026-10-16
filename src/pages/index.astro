@@ -1,0 +1,491 @@
+---
+import Base from '../layouts/Base.astro';
+import DirectionDeal from '../components/DirectionDeal.tsx';
+import CodeBlock from '../components/CodeBlock.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { LINKS, SITE } from '../data/site';
+import { STEPS } from '../data/workflow';
+import { LIBRARY, STUDY } from '../data/directions';
+import { DEFAULT_SKILL, IMAGE_SKILLS, LEGACY_SKILLS, TASK_SKILLS } from '../data/skills';
+import { EXAMPLES } from '../data/examples';
+import { COMMUNITY_SPONSORS, SPONSORS, SUPPORTERS } from '../data/sponsors';
+
+const quickRows = [DEFAULT_SKILL, ...TASK_SKILLS, ...IMAGE_SKILLS, ...LEGACY_SKILLS];
+const homeExamples = [EXAMPLES[0], EXAMPLES[1]];
+const studyStats = [
+  { value: String(STUDY.sites), label: '精选站点研究' },
+  { value: '20', label: '研究方向' },
+  { value: '172', label: '分区构图' },
+  { value: '0', label: '检查器失败项' },
+];
+---
+
+<Base
+  fullTitle
+  title={`Taste Skill 中文站 · ${SITE.tagline}`}
+  description={SITE.description}
+>
+  <!-- ① 首屏：巨型标题铺满整行，下面再分栏放说明与真实图片 -->
+  <section class="mx-auto max-w-[1240px] px-5 pb-14 pt-12 lg:px-8 lg:pb-20 lg:pt-14">
+    <h1 class="t-display" data-reveal>
+      让代理做设计<br />而不是拼页面
+    </h1>
+
+    <div class="mt-12 grid items-end gap-10 lg:mt-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12">
+      <div>
+        <p class="t-lead" data-reveal style="--reveal-delay:80ms">
+          一组可移植的 Agent 技能。它先盘点客户独有的东西，再从一个研究方向库里抽牌，用真实图片把页面建起来，最后在一个真实浏览器里把自己的作品量一遍。
+        </p>
+        <div class="mt-9 flex flex-wrap gap-3" data-reveal style="--reveal-delay:160ms">
+          <a href="/install" class="btn btn-ink">快速安装 <span aria-hidden="true">→</span></a>
+          <a href="/examples" class="btn btn-line">看它建出来的页面</a>
+        </div>
+
+        <dl class="mt-12 grid max-w-[30rem] grid-cols-2 gap-x-8 gap-y-6">
+          {
+            studyStats.map((s, i) => (
+              <div data-reveal style={`--reveal-delay:${240 + i * 60}ms`}>
+                <dt class="sr-only">{s.label}</dt>
+                <dd class="m-0">
+                  <span class="block text-[2rem] font-extrabold leading-none tracking-tight tabular-nums">
+                    {s.value}
+                  </span>
+                  <span class="mt-1.5 block text-[0.8125rem] text-ink-2">{s.label}</span>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+
+      <figure class="m-0" data-reveal style="--reveal-delay:120ms">
+        <div class="overflow-hidden">
+          <img
+            src="/images/examples/coffee-storefront.webp"
+            alt="由 taste-skill 构建的咖啡店落地页：深色底，超大标题写着 TWENTY SEATS AND A ROASTER，下方是一幅手绘的店铺立面"
+            width="1200"
+            height="701"
+            class="breathe w-full"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
+        <figcaption class="t-meta mt-3.5">
+          一个需求，一次构建。这是技能在真实浏览器里通过检查器之后的产物。
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ② 声明：细色带，只放事实 -->
+  <div class="band-deep">
+    <div class="mx-auto max-w-[1240px] px-5 py-4 lg:px-8">
+      <p class="t-meta m-0 max-w-[90ch]">
+        <strong class="font-semibold text-ink">免责声明</strong> &mdash; Taste Skill
+        没有官方发行的代币、硬币或加密项目。任何使用作者姓名、形象或本项目名义的代币都与作者无关，也未获得认可。
+      </p>
+    </div>
+  </div>
+
+  <!-- ③ 主张：整幅墨色带 -->
+  <section class="band band-ink">
+    <div class="mx-auto grid max-w-[1240px] gap-10 px-5 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:px-8">
+      <div data-reveal>
+        <p class="max-w-[26ch] text-[clamp(1.75rem,4vw,3.1rem)] font-extrabold leading-[1.06] tracking-[-0.03em]">
+          模型做的页面，是它见过的所有页面的平均值。
+        </p>
+        <p class="mt-7 max-w-[58ch] text-[1.02rem] leading-relaxed opacity-75">
+          一个居中的标题、上面一个小标签、一排图标卡片、一道柔和的渐变、几条细线、一句等宽字体的小字。里面没有任何一处是错的，也没有任何一处是被决定过的。
+        </p>
+      </div>
+      <div data-reveal style="--reveal-delay:100ms">
+        <p class="max-w-[26ch] text-[clamp(1.75rem,4vw,3.1rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-accent">
+          这个技能把那堆默认值，换成决定。
+        </p>
+        <p class="mt-7 max-w-[58ch] text-[1.02rem] leading-relaxed opacity-75">
+          它从 {STUDY.sites} 个精选站点（{STUDY.sources}）里提炼出二十个研究方向，把每一个决定都摊在桌面上让你看见，再用一个真实的浏览器检查器确认它真的做到了。
+        </p>
+        <p class="mt-8">
+          <a
+            href="/workflow"
+            class="inline-flex items-center gap-2 font-semibold underline decoration-[1.5px] underline-offset-4 hover:bg-accent hover:text-accent-ink"
+          >
+            看它到底怎么工作 <span aria-hidden="true">→</span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ 抽牌 + 库规模 -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-24">
+    <div data-reveal>
+      <DirectionDeal client:visible />
+    </div>
+
+    <div class="mt-16 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+      {
+        LIBRARY.slice(0, 8).map((stat) => (
+          <div class="flex items-start gap-4">
+            <span class="mt-1 block size-2.5 shrink-0 bg-accent" aria-hidden="true" />
+            <div>
+              <p class="text-[1.75rem] font-extrabold leading-none tracking-tight tabular-nums">
+                {stat.value}
+              </p>
+              <p class="mt-1.5 text-[0.9rem] font-semibold">{stat.label}</p>
+              <p class="t-meta mt-0.5">{stat.note}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ⑤ 六步：阶梯色带 -->
+  <section class="band-deep">
+    <div class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-24">
+      <h2 class="t-h2 max-w-[24ch]" data-reveal>一次构建，六个步骤</h2>
+      <p class="t-lead mt-4" data-reveal style="--reveal-delay:80ms">
+        前五步只要几分钟，却决定这个页面到底好不好。
+      </p>
+
+      <ol class="mt-12 list-none p-0">
+        {
+          STEPS.map((step, i) => (
+            <li
+              class:list={['relative', i === 0 ? 'pt-7' : 'pt-12']}
+              data-reveal
+              style={`--reveal-delay:${i * 60}ms`}
+            >
+              <span
+                aria-hidden="true"
+                class="absolute left-0 top-0 bg-ground px-2.5 py-1 text-[0.8125rem] font-semibold text-ink"
+                style={{ marginLeft: `clamp(0px, ${i * 5}vw, 5rem)` }}
+              >
+                {step.name}
+              </span>
+              <div class="grid gap-2 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-10">
+                <h3 class="text-[1.15rem] font-extrabold leading-snug tracking-tight">
+                  {step.title}
+                </h3>
+                <div>
+                  <p class="max-w-[62ch] text-[0.95rem] leading-relaxed text-ink-2">{step.body}</p>
+                  {step.tool && <p class="mono mt-2 text-[0.8125rem] text-ink-2">{step.tool}</p>}
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <p class="mt-12" data-reveal>
+        <a
+          href="/workflow"
+          class="inline-flex items-center gap-2 font-semibold underline decoration-[1.5px] underline-offset-4 hover:bg-accent hover:text-accent-ink"
+        >
+          检查器会判失败的全部条目 <span aria-hidden="true">→</span>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ⑥ 技能速览：行式列表，与卡片网格区分 -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-24">
+    <SectionHead
+      title="一个技能只做一件事，你不必全都装"
+      lead="默认技能负责做设计，其余的技能各管一段：改造旧项目、先出图再写码、治半成品输出，以及三种已经确定的视觉方向。"
+    />
+    <div class="mt-12">
+      {
+        quickRows.map((skill, i) => (
+          <a
+            href="/skills"
+            class="group grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 py-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,4fr)_minmax(0,3fr)_auto]"
+            data-reveal
+            style={`--reveal-delay:${i * 35}ms`}
+          >
+            <span class="flex items-center gap-2.5 text-[1.05rem] font-extrabold tracking-tight">
+              <span
+                aria-hidden="true"
+                class="block size-2.5 shrink-0 bg-accent transition-transform duration-200 group-hover:scale-150"
+              />
+              {skill.label}
+              {skill.badge && (
+                <span class="bg-ink-surface px-1.5 py-0.5 text-[0.625rem] font-bold uppercase tracking-[0.1em] text-on-ink">
+                  {skill.badge}
+                </span>
+              )}
+            </span>
+            <span class="col-span-2 text-[0.9rem] text-ink-2 lg:col-span-1">{skill.tagline}</span>
+            <span class="mono col-span-2 text-[0.8125rem] text-ink-3 lg:col-span-1">
+              {skill.installName}
+            </span>
+            <span
+              aria-hidden="true"
+              class="justify-self-end text-[1.1rem] opacity-40 transition-opacity group-hover:opacity-100"
+            >
+              →
+            </span>
+          </a>
+        ))
+      }
+    </div>
+    <p class="t-meta mt-4">
+      完整的技能说明、使用场景与历史版本在<a href="/skills" class="link ml-1">技能库</a>。
+    </p>
+  </section>
+
+  <!-- ⑦ 示例：整幅图片 -->
+  <section class="band band-ink">
+    <div class="mx-auto max-w-[1240px] px-5 lg:px-8">
+      <div class="flex flex-wrap items-end justify-between gap-6" data-reveal>
+        <h2 class="t-h2 max-w-[20ch] text-on-ink">每一个页面，都来自一份简短需求</h2>
+        <a
+          href="/examples"
+          class="inline-flex items-center gap-2 font-semibold underline decoration-[1.5px] underline-offset-4 hover:bg-accent hover:text-accent-ink"
+        >
+          看全部示例 <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+        {
+          homeExamples.map((ex, i) => (
+            <figure class="m-0" data-reveal style={`--reveal-delay:${i * 90}ms`}>
+              <img
+                src={ex.image}
+                alt={ex.alt}
+                width="1200"
+                height="701"
+                class="w-full"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="mt-3.5">
+                <p class="text-[1.05rem] font-extrabold tracking-tight text-on-ink">{ex.title}</p>
+                <p class="mt-1 max-w-[52ch] text-[0.9rem] leading-relaxed opacity-70">
+                  {ex.caption}
+                </p>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <p class="t-meta mt-8">
+        示例中的照片都是真实的，来自开放档案，并由技能逐一署名。
+      </p>
+    </div>
+  </section>
+
+  <!-- ⑧ TasteCode -->
+  <section class="band band-fill">
+    <div class="mx-auto grid max-w-[1240px] items-center gap-10 px-5 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:px-8">
+      <div data-reveal>
+        <h2 class="t-h2 max-w-[18ch]">想要最省事的用法：装 TasteCode</h2>
+        <p class="mt-5 max-w-[50ch] text-[1.02rem] leading-relaxed opacity-80">
+          Taste Skill 的桌面应用，内置一个设计代理。它会先跟你对齐需求，再动手构建，然后自己用眼睛检查一遍界面。免费、开源。
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={LINKS.tastecode} class="btn btn-ink" target="_blank" rel="noopener noreferrer">
+            前往 tastecode.dev <span aria-hidden="true">↗</span>
+          </a>
+          <a
+            href={LINKS.tastecodeRepo}
+            class="btn btn-line"
+            target="_blank"
+            rel="noopener noreferrer">源码</a
+          >
+        </div>
+      </div>
+      <figure class="m-0" data-reveal style="--reveal-delay:100ms">
+        <img
+          src="/images/tastecode.webp"
+          alt="TasteCode 的宣传图：Taste Skill 作为桌面应用，内置设计代理"
+          width="1200"
+          height="600"
+          class="w-full"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ⑨ 快速安装 -->
+  <section class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-24">
+    <SectionHead
+      title="一行命令，装齐全部技能"
+      lead="npx skills CLI 会扫描仓库的 skills/ 目录，所以代码类与图像生成类技能的安装方式是同一套。"
+    />
+    <div class="mt-10 grid gap-7 lg:grid-cols-2">
+      <div data-reveal>
+        <CodeBlock
+          code="npx skills add https://github.com/Leonxlnx/taste-skill"
+          fileLabel="install-all.sh"
+          note="装上仓库里的全部技能"
+        />
+      </div>
+      <div data-reveal style="--reveal-delay:90ms">
+        <CodeBlock
+          code={`npx skills add https://github.com/Leonxlnx/taste-skill \\
+  --skill "design-taste-frontend"`}
+          fileLabel="install-one.sh"
+          note="只装默认技能；把 --skill 换成别的安装名就是别的技能"
+        />
+        <p class="t-meta mt-5">
+          完整安装方式（含 Claude Code 与 Codex 插件、软链安装、前置要求）在<a
+            href="/install"
+            class="link ml-1">安装页</a
+          >。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑩ 赞助者 -->
+  <section class="band-deep">
+    <div class="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+      <div class="flex flex-wrap items-end justify-between gap-5">
+        <h2 class="t-h2 max-w-[20ch]" data-reveal>赞助者与开源支持者</h2>
+        <a
+          href={LINKS.sponsor}
+          class="inline-flex items-center gap-2 font-semibold underline decoration-[1.5px] underline-offset-4 hover:bg-accent hover:text-accent-ink"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-reveal
+        >
+          成为赞助者 <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <ul class="mt-10 grid list-none gap-6 p-0 sm:grid-cols-2 lg:grid-cols-3" data-reveal>
+        {
+          SPONSORS.map((s) => (
+            <li class="flex items-start gap-4">
+              <img
+                src={s.logo}
+                alt=""
+                width="44"
+                height="44"
+                class="size-11 shrink-0 object-contain"
+                loading="lazy"
+                decoding="async"
+              />
+              <div>
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-[1rem] font-extrabold tracking-tight underline decoration-[1.5px] underline-offset-4 hover:bg-accent hover:text-accent-ink"
+                >
+                  {s.name}
+                </a>
+                <p class="mt-1 text-[0.875rem] leading-relaxed text-ink-2">{s.blurb}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-12 grid gap-8 lg:grid-cols-2" data-reveal>
+        <div>
+          <h3 class="text-[0.8125rem] font-bold uppercase tracking-[0.12em] text-ink-2">
+            开源支持者
+          </h3>
+          <ul class="mt-4 list-none space-y-4 p-0">
+            {
+              SUPPORTERS.map((s) => (
+                <li class="flex items-start gap-4">
+                  <img
+                    src={s.logo}
+                    alt=""
+                    width="40"
+                    height="40"
+                    class="size-10 shrink-0 object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <p class="text-[0.9rem] leading-relaxed text-ink-2">
+                    <a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="font-bold text-ink underline decoration-[1.5px] underline-offset-4 hover:bg-accent hover:text-accent-ink"
+                    >
+                      {s.name}
+                    </a>
+                    <span class="ml-2">{s.blurb}</span>
+                  </p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-[0.8125rem] font-bold uppercase tracking-[0.12em] text-ink-2">
+            社区赞助者
+          </h3>
+          <ul class="mt-4 flex list-none flex-wrap gap-2 p-0">
+            {
+              COMMUNITY_SPONSORS.map((login) => (
+                <li>
+                  <a
+                    href={`https://github.com/${login}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={login}
+                    class="relative grid size-10 place-items-center overflow-hidden bg-ink-surface text-on-ink transition-transform duration-200 hover:-translate-y-0.5"
+                  >
+                    <span aria-hidden="true" class="text-[0.8125rem] font-bold uppercase">
+                      {login.slice(0, 1)}
+                    </span>
+                    <img
+                      src={`https://github.com/${login}.png`}
+                      alt=""
+                      width="40"
+                      height="40"
+                      class="absolute inset-0 size-10 object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      data-fallback
+                    />
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑪ 结尾 CTA -->
+  <section class="band band-fill">
+    <div class="mx-auto max-w-[1240px] px-5 text-center lg:px-8">
+      <h2 class="t-h1 mx-auto max-w-[22ch]" data-reveal>让代理拥有品味</h2>
+      <p
+        class="mx-auto mt-5 max-w-[46ch] text-[1.05rem] leading-relaxed opacity-80"
+        data-reveal
+        style="--reveal-delay:80ms"
+      >
+        一行命令安装。开源、可移植、框架无关。
+      </p>
+      <div
+        class="mt-9 flex flex-wrap justify-center gap-3"
+        data-reveal
+        style="--reveal-delay:160ms"
+      >
+        <a href="/install" class="btn btn-ink">立即安装 <span aria-hidden="true">→</span></a>
+        <a
+          href={LINKS.upstreamRepo}
+          class="btn btn-line"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          在 GitHub 上 Star <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

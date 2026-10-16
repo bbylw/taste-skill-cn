@@ -1,0 +1,112 @@
+---
+import '@fontsource-variable/archivo';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** 首页不追加站点名后缀 */
+  fullTitle?: boolean;
+}
+
+const { title, description = SITE.description, fullTitle = false } = Astro.props;
+const pageTitle = fullTitle ? title : `${title} | ${SITE.shortName} 中文站`;
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', SITE.url).href;
+const ogImage = new URL('/images/banner.webp', SITE.url).href;
+---
+
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
+    <meta name="theme-color" content="#eceae2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1c1c20" media="(prefers-color-scheme: dark)" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script is:inline>
+      // 在首帧之前定好主题，避免闪一下白底
+      (function () {
+        document.documentElement.classList.add('js');
+        try {
+          var saved = localStorage.getItem('ts-theme');
+          var theme =
+            saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          /* 隐私模式下读不到 localStorage，用默认亮色 */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-ink-surface focus:px-4 focus:py-2 focus:text-on-ink"
+      >跳到主要内容</a
+    >
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script is:inline>
+      // 滚动入场：只加 class，过渡交给 CSS
+      (function () {
+        var nodes = document.querySelectorAll('[data-reveal]');
+        if (!nodes.length) return;
+        if (!('IntersectionObserver' in window)) {
+          nodes.forEach(function (n) {
+            n.classList.add('is-in');
+          });
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('is-in');
+              io.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+        );
+        nodes.forEach(function (n) {
+          io.observe(n);
+        });
+      })();
+
+      // 远端图片加载失败时，露出下层已经画好的占位内容
+      document.addEventListener(
+        'error',
+        function (event) {
+          var el = event.target;
+          if (el && el.tagName === 'IMG' && el.hasAttribute('data-fallback')) {
+            el.remove();
+          }
+        },
+        true,
+      );
+    </script>
+  </body>
+</html>
