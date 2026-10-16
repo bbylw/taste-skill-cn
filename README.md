@@ -77,7 +77,7 @@
 
 这些照片都是真实的，从开放档案里找出来，并由技能逐一署名（[署名清单](https://github.com/Leonxlnx/taste-skill/blob/main/examples/v2/CREDITS.md)）。可以看看[发布影片](https://github.com/Leonxlnx/taste-skill/releases/tag/v2.0.0)。
 
-<p align="center"><sub><a href="#安装">安装</a> · <a href="#v2-是怎么工作的">工作原理</a> · <a href="#技能">技能</a> · <a href="#常见问题">常见问题</a> · <a href="#支持本项目">赞助</a> · <a href="#本站">关于本站</a> · <a href="#许可证">许可证</a></sub></p>
+<p align="center"><sub><a href="#安装">安装</a> · <a href="#v2-是怎么工作的">工作原理</a> · <a href="#技能">技能</a> · <a href="#常见问题">常见问题</a> · <a href="#支持本项目">赞助</a> · <a href="#许可证">许可证</a></sub></p>
 
 ## 安装
 
@@ -287,39 +287,6 @@ Node 22 或更高版本，以及 Chrome、Edge 或 Chromium。它不安装任何
 ## 研究
 
 塑造这些技能的背景研究位于 [`research/`](https://github.com/Leonxlnx/taste-skill/tree/main/research)，其中 [LLM 输出截断研究](https://github.com/Leonxlnx/taste-skill/tree/main/research/laziness) 解释了模型为什么会交半成品，以及如何补救。
-
-## 本站
-
-这个仓库除了中文版 README，还托管 **Taste Skill 中文站**：<https://taste.ndjp.net>
-
-它是上游 [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) 的中文镜像站点，内容译自上游 README 与 CHANGELOG，并按照上游 v2 自己的「家规」重新设计了一遍（不出现标题上方的装饰标签、编号式段落、细线框、渐变与静止投影，正文不小于 13px，全页只有一个强调色）。
-
-| 项 | 值 |
-| --- | --- |
-| 框架 | [Astro](https://astro.build) 7 |
-| 类型 | TypeScript 6.x |
-| 交互 | React 19（islands） |
-| 样式 | Tailwind CSS 4（CSS-first 配置） |
-| 动效 | Motion（`motion/react`） |
-| 字体 | Archivo Variable 自托管 + 系统中文栈（不依赖 Google Fonts） |
-| 包管理 | [Bun](https://bun.sh) |
-| 部署 | GitHub Actions → GitHub Pages（自定义域名 `taste.ndjp.net`） |
-
-站点一共 9 个路由：`/` 首页 · `/skills` 技能库 · `/install` 安装 · `/workflow` 工作原理 · `/examples` 示例 · `/changelog` 更新日志 · `/faq` 常见问题 · `/research` 研究 · `/404`。
-
-明暗两套主题各有一套设计令牌，切换走 `data-theme`，并在首帧之前定好以避免闪白。层叠方向在两个主题里保持一致（纸底 → 抬起/下沉块 → 墨带依次加深），所以语意色落在哪儿都够对比。正文、链接与按钮在 390 / 768 / 1440 三个宽度、两种主题下都按 WCAG 2.1 AA（正文 4.5:1、大字号 3:1）实测通过。
-
-### 本地开发
-
-```bash
-bun install      # 安装依赖
-bun run dev      # 本地开发服务器
-bun run build    # 构建到 dist/
-bun run preview  # 预览构建产物
-bun run check    # Astro + TypeScript 类型检查
-```
-
-站点目录：`src/pages/` 下每个文件对应一个路由，`src/data/` 是全部文案与结构化数据，`src/components/` 是组件（`*.tsx` 是需要水合的 React 岛）。
 
 ## 许可证
 
