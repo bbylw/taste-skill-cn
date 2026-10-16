@@ -13,7 +13,7 @@ export type Direction = {
   motion: string;
 };
 
-/** 二十个研究方向：draw.mjs 会从里面发出三张牌，让代理选一张 */
+/** 二十个研究方向：draw.mjs 会从里面发出三张牌，让 Agent 选一张 */
 export const DIRECTIONS: Direction[] = [
   {
     id: 'name-as-monument',
@@ -181,7 +181,7 @@ export type LibraryStat = { label: string; value: number; note: string };
 
 /** 方向库的规模 */
 export const LIBRARY: LibraryStat[] = [
-  { label: '研究方向', value: 20, note: '每次抽三个，由代理选一个' },
+  { label: '研究方向', value: 20, note: '每次抽三个，由 Agent 选一个' },
   { label: '首屏构图', value: 48, note: '按方向发牌' },
   { label: '分区构图', value: 172, note: '按方向发牌' },
   { label: '免费字体系统', value: 44, note: '全部是免费字体' },

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/images/banner.webp" alt="Taste Skill — 面向 AI 代理的反「套路」前端框架" width="100%" />
+  <img src="public/images/banner.webp" alt="Taste Skill — 面向 AI Agent 的反「套路」前端框架" width="100%" />
 </p>
 
 <p align="center">
@@ -17,10 +17,10 @@
 </p>
 
 <p align="center">
-  <a href="https://tastecode.dev"><img src="public/images/tastecode.webp" alt="TasteCode 来了：Taste Skill 的桌面应用，内置设计代理，免费开源，在 tastecode.dev 下载" width="100%" /></a>
+  <a href="https://tastecode.dev"><img src="public/images/tastecode.webp" alt="TasteCode 来了：Taste Skill 的桌面应用，内置设计 Agent，免费开源，在 tastecode.dev 下载" width="100%" /></a>
 </p>
 
-<p align="center"><sub>想最省事地拿到 Taste Skill 的效果：<a href="https://tastecode.dev"><strong>下载 TasteCode</strong></a>。它的设计代理会先跟你对齐需求，再动手构建，然后用眼睛复查界面。<a href="https://github.com/Leonxlnx/tastecode">源码在 GitHub</a>。</sub></p>
+<p align="center"><sub>想最省事地拿到 Taste Skill 的效果：<a href="https://tastecode.dev"><strong>下载 TasteCode</strong></a>。它的设计 Agent 会先跟你对齐需求，再动手构建，然后用眼睛复查界面。<a href="https://github.com/Leonxlnx/tastecode">源码在 GitHub</a>。</sub></p>
 
 <h3 align="center">赞助者</h3>
 
@@ -60,7 +60,7 @@
 
 <p align="center"><sub><a href="https://github.com/sponsors/Leonxlnx">成为赞助者</a></sub></p>
 
-**Taste Skill（品味技能）** 是一组 Agent 技能，它让编码代理去「做设计」，而不是拼出那个平均值的落地页。默认技能给代理一套艺术指导、真实图片，以及一个在真实浏览器里检查自己作品的办法。
+**Taste Skill（品味技能）** 是一组 Agent 技能，它让编码 Agent 去「做设计」，而不是拼出那个平均值的落地页。默认技能给 Agent 一套艺术指导、真实图片，以及一个在真实浏览器里检查自己作品的办法。
 
 它建出来的页面，每一个都来自一份简短需求：
 
@@ -133,7 +133,7 @@ codex plugin add taste-skill@taste-skill
 默认技能出自一项对 247 个精选站点的研究。一次构建走六个步骤：
 
 1. 读取需求，列出只有这个客户才有的东西。
-2. 脚本从 20 个研究过的方向里发出三张牌，代理选一张。
+2. 脚本从 20 个研究过的方向里发出三张牌，Agent 选一张。
 3. 立论：用一句话把客户自己的素材和那个方向的手法系在一起。
 4. 用开放馆藏里的真实图片与影像构建页面，并逐一署名。
 5. 在三个宽度下的真实浏览器里检查页面，发现套路就判失败。
@@ -168,7 +168,7 @@ codex plugin add taste-skill@taste-skill
 <details>
 <summary>图像生成类技能（3 个）</summary>
 
-这些技能只产出设计图，不写代码。配合 ChatGPT Images、Codex 图像模式，或任何能生图的代理使用，然后把画面交给你的编码代理。
+这些技能只产出设计图，不写代码。配合 ChatGPT Images、Codex 图像模式，或任何能生图的 Agent 使用，然后把画面交给你的编码 Agent。
 
 | 技能 | 安装名 | 说明 |
 | --- | --- | --- |
@@ -184,7 +184,7 @@ codex plugin add taste-skill@taste-skill
 - 要改一个已经存在的页面：**redesign-skill**。
 - 视觉方向已经定了：**soft-skill**、**minimalist-skill** 或 **brutalist-skill**。
 - 想先要图、再要代码：用某个图像生成技能，或者用 **image-to-code-skill** 一条链路走完。
-- 代理总是把输出砍短：加上 **output-skill**。
+- Agent 总是把输出砍短：加上 **output-skill**。
 
 <details>
 <summary>taste-skill 的旧版本</summary>

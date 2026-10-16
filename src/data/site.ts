@@ -7,9 +7,9 @@
 export const SITE = {
   title: 'Taste Skill 中文站',
   shortName: 'Taste Skill',
-  tagline: '面向 AI 代理的反套路前端框架',
+  tagline: '面向 AI Agent 的反套路前端框架',
   description:
-    'Taste Skill 是一组可移植的 Agent 技能，让编码代理去「做设计」而不是拼出千篇一律的落地页。v2 从 247 个精选站点研究中得出方向库，用真实图片与真实浏览器检查器把「不套路」变成硬性标准。',
+    'Taste Skill 是一组可移植的 Agent 技能，让编码 Agent 去「做设计」而不是拼出千篇一律的落地页。v2 从 247 个精选站点研究中得出方向库，用真实图片与真实浏览器检查器把「不套路」变成硬性标准。',
   url: 'https://taste.ndjp.net',
   locale: 'zh-CN',
   version: '2.0.0',

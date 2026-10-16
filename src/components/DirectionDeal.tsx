@@ -45,7 +45,7 @@ export default function DirectionDeal() {
           </h2>
           <p className="t-meta mt-3 max-w-[54ch]">
             让模型自己发明风格，它每次都会给出那个类目的默认答案。所以由脚本发牌：从 20
-            个研究方向里抽三张，代理挑出那张能承载客户独有素材的牌，再由脚本发出它的字体系统、配色与构图。
+            个研究方向里抽三张，Agent 挑出那张能承载客户独有素材的牌，再由脚本发出它的字体系统、配色与构图。
           </p>
         </div>
         <button type="button" onClick={deal} className="btn btn-ink shrink-0">

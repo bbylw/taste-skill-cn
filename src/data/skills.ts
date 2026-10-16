@@ -109,7 +109,7 @@ export const TASK_SKILLS: Skill[] = [
     label: 'output-skill',
     tagline: '治「半成品输出」',
     summary: '当模型总是交半成品时用它：强制完整输出，禁止占位注释，禁止「此处省略」。',
-    useWhen: ['代理经常截断输出', '代码里总出现 TODO 和省略号'],
+    useWhen: ['Agent 经常截断输出', '代码里总出现 TODO 和省略号'],
     group: 'task',
   },
 ];
@@ -123,7 +123,7 @@ export const IMAGE_SKILLS: Skill[] = [
     tagline: '网站构图',
     summary:
       '首页、落地页、多区块页面的构图参考图：强调排版、留白与反套路的艺术指导。只生成图像，不写代码。',
-    useWhen: ['需要一个网站的画面参考', '先定构图再交给编码代理'],
+    useWhen: ['需要一个网站的画面参考', '先定构图再交给编码 Agent'],
     group: 'image',
   },
   {
@@ -175,7 +175,7 @@ export const CHOOSER: { question: string; answer: string }[] = [
   { question: '要改一个已经存在的页面', answer: 'redesign-skill' },
   { question: '视觉方向已经定了', answer: 'soft-skill / minimalist-skill / brutalist-skill' },
   { question: '想先要图，再要代码', answer: 'image-to-code-skill，或任一图像生成技能' },
-  { question: '代理总是把输出砍短', answer: 'output-skill' },
+  { question: 'Agent 总是把输出砍短', answer: 'output-skill' },
 ];
 
 /** v1 / v2-experimental 共有的三个旋钮 */

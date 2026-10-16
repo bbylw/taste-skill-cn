@@ -58,7 +58,7 @@ export const PLUGIN_COMMANDS: Command[] = [
   {
     id: 'clone',
     label: '从克隆链接，而不是复制',
-    note: './install.sh 会把技能软链到代理的技能目录（--codex 指向 Codex，--all-agents 两个都指），这样一次 git pull 就能原地更新。--list 会列出所有安装名。',
+    note: './install.sh 会把技能软链到 Agent 的技能目录（--codex 指向 Codex，--all-agents 两个都指），这样一次 git pull 就能原地更新。--list 会列出所有安装名。',
     code: './install.sh --all-agents\n./install.sh --list',
     lang: 'shell',
   },
